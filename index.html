@@ -7,6 +7,11 @@
 <title>Anu's Little Galaxy ♡</title>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     margin:0;
     padding:0;
@@ -19,476 +24,1320 @@ html{
 
 body{
     min-height:100vh;
-    color:#fff4f7;
-    font-family:"Trebuchet MS",sans-serif;
     overflow-x:hidden;
+    color:#fff5f8;
+    font-family:"Trebuchet MS",Arial,sans-serif;
+
     background:
-        linear-gradient(rgba(28,8,25,.35),rgba(20,5,18,.5)),
-        url("background.jpg") center/cover fixed;
+        linear-gradient(
+            rgba(30,7,27,.32),
+            rgba(24,5,21,.48)
+        ),
+        url("background.jpg") center/cover fixed no-repeat;
 }
 
-/* DARK GLASS */
-.overlay{
+button{
+    font-family:inherit;
+}
+
+::selection{
+    background:#e9a8bc;
+    color:#291021;
+}
+
+
+/* =========================================================
+   ATMOSPHERE
+========================================================= */
+
+#stars,
+#particles{
     position:fixed;
     inset:0;
-    background:rgba(35,8,29,.22);
     pointer-events:none;
-    z-index:-1;
+    z-index:1;
 }
 
-/* STARS */
 .star{
-    position:fixed;
+    position:absolute;
     width:3px;
     height:3px;
-    background:#ffe7ef;
     border-radius:50%;
-    box-shadow:0 0 12px #ffd4e5;
-    animation:twinkle 2s infinite alternate;
-    z-index:0;
+    background:#ffe9f0;
+    box-shadow:0 0 12px #ffd2e0;
+    animation:twinkle 2.5s infinite ease-in-out;
+}
+
+.star.big{
+    width:5px;
+    height:5px;
 }
 
 @keyframes twinkle{
-    from{opacity:.2;transform:scale(.7)}
-    to{opacity:1;transform:scale(1.5)}
+    0%,100%{
+        opacity:.2;
+        transform:scale(.7);
+    }
+    50%{
+        opacity:1;
+        transform:scale(1.5);
+    }
 }
 
-/* FLOATING HEARTS */
-.float{
-    position:fixed;
-    bottom:-30px;
-    color:#f5a9c2;
-    font-size:20px;
-    opacity:.5;
-    animation:floatUp linear infinite;
-    z-index:0;
+.particle{
+    position:absolute;
+    color:#efb2c6;
+    opacity:.45;
+    font-size:14px;
+    animation:particleFloat linear forwards;
 }
 
-@keyframes floatUp{
-    0%{
-        transform:translateY(0) rotate(0deg);
+@keyframes particleFloat{
+    from{
+        transform:translateY(30px) rotate(0deg);
         opacity:0;
     }
-    15%{opacity:.7}
-    100%{
+
+    15%{
+        opacity:.6;
+    }
+
+    to{
         transform:translateY(-110vh) rotate(360deg);
         opacity:0;
     }
 }
 
-/* HERO */
-.hero{
-    min-height:100vh;
+
+/* =========================================================
+   SHOOTING STAR
+========================================================= */
+
+.shooting-star{
+    position:fixed;
+    width:130px;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #ffe9ef
+    );
+    transform:rotate(-28deg);
+    right:-160px;
+    top:15%;
+    z-index:2;
+    opacity:0;
+}
+
+.shooting-star.go{
+    animation:shoot 1.7s linear;
+}
+
+@keyframes shoot{
+    0%{
+        right:-160px;
+        top:10%;
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    100%{
+        right:115%;
+        top:70%;
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+.nav{
+    position:fixed;
+    top:18px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:10;
+
+    width:min(900px,92%);
+
     display:flex;
-    flex-direction:column;
     justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:30px 20px;
-    position:relative;
-}
+    gap:8px;
+    flex-wrap:wrap;
 
-.moon{
-    width:115px;
-    height:115px;
-    border-radius:50%;
-    background:#ffe4ec;
-    box-shadow:
-        0 0 25px #ffd3e2,
-        0 0 70px rgba(255,180,205,.35);
-    position:absolute;
-    top:9%;
-    right:13%;
-    opacity:.9;
-}
+    padding:10px;
 
-.moon:after{
-    content:"";
-    position:absolute;
-    width:110px;
-    height:110px;
-    border-radius:50%;
-    background:#351027;
-    left:27px;
-    top:-8px;
-}
-
-.hero h1{
-    font-family:Georgia,serif;
-    font-size:clamp(45px,8vw,85px);
-    font-weight:400;
-    letter-spacing:2px;
-    text-shadow:0 0 25px rgba(255,190,215,.6);
-    animation:fadeDown 1.5s ease;
-}
-
-.hero p{
-    max-width:650px;
-    margin-top:18px;
-    font-size:18px;
-    line-height:1.8;
-    color:#f8ccd9;
-    animation:fadeUp 1.5s ease;
-}
-
-.enter{
-    margin-top:30px;
-    padding:15px 28px;
-    border:1px solid rgba(255,210,225,.5);
+    background:rgba(35,8,29,.42);
+    border:1px solid rgba(255,215,228,.18);
     border-radius:50px;
-    background:rgba(255,220,235,.12);
-    color:white;
-    font-size:16px;
+
+    backdrop-filter:blur(15px);
+}
+
+.nav button{
+    border:0;
+    background:transparent;
+    color:#f7c9d7;
+    padding:9px 14px;
+    border-radius:30px;
     cursor:pointer;
-    backdrop-filter:blur(8px);
     transition:.3s;
 }
 
-.enter:hover{
-    transform:translateY(-4px) scale(1.04);
-    background:rgba(255,210,230,.2);
-    box-shadow:0 0 25px rgba(255,170,200,.3);
+.nav button:hover{
+    background:rgba(255,205,225,.12);
+    color:white;
 }
 
-@keyframes fadeDown{
-    from{opacity:0;transform:translateY(-30px)}
-    to{opacity:1;transform:translateY(0)}
-}
 
-@keyframes fadeUp{
-    from{opacity:0;transform:translateY(30px)}
-    to{opacity:1;transform:translateY(0)}
-}
+/* =========================================================
+   GENERAL
+========================================================= */
 
-/* BEAR */
-.bear-area{
-    margin-top:55px;
-    position:relative;
-    width:230px;
-    height:250px;
-    animation:breathe 3s ease-in-out infinite;
-}
-
-@keyframes breathe{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-8px)}
-}
-
-.bear{
-    position:absolute;
-    width:155px;
-    height:150px;
-    left:38px;
-    bottom:15px;
-    background:#fffaf8;
-    border-radius:48% 48% 43% 43%;
-    box-shadow:
-        inset -12px -8px 0 #f3e4e5,
-        0 15px 35px rgba(0,0,0,.25);
-}
-
-/* ears */
-.ear{
-    position:absolute;
-    width:55px;
-    height:55px;
-    background:#fffaf8;
-    border-radius:50%;
-    top:-27px;
-    box-shadow:inset -6px -5px 0 #f1dfe1;
-}
-
-.ear.left{left:5px}
-.ear.right{right:5px}
-
-.ear:after{
-    content:"";
-    position:absolute;
-    inset:12px;
-    border-radius:50%;
-    background:#f4cbd4;
-}
-
-/* face */
-.eye{
-    position:absolute;
-    width:9px;
-    height:12px;
-    background:#3a2430;
-    border-radius:50%;
-    top:58px;
-}
-
-.eye.left{left:48px}
-.eye.right{right:48px}
-
-.nose{
-    position:absolute;
-    width:13px;
-    height:9px;
-    background:#6c3a4d;
-    border-radius:50%;
-    left:71px;
-    top:75px;
-}
-
-.mouth{
-    position:absolute;
-    width:20px;
-    height:10px;
-    border-bottom:2px solid #6c3a4d;
-    border-radius:50%;
-    left:67px;
-    top:81px;
-}
-
-.blush{
-    position:absolute;
-    width:25px;
-    height:12px;
-    background:#f5c3cf;
-    border-radius:50%;
-    opacity:.65;
-    top:76px;
-}
-
-.blush.left{left:22px}
-.blush.right{right:22px}
-
-/* paws */
-.paw{
-    position:absolute;
-    width:45px;
-    height:65px;
-    background:#fffaf8;
-    border-radius:50%;
-    bottom:5px;
-    box-shadow:inset -5px -4px 0 #f1e1e2;
-}
-
-.paw.left{
-    left:-17px;
-    transform:rotate(25deg);
-}
-
-.paw.right{
-    right:-17px;
-    transform:rotate(-25deg);
-}
-
-/* tiny heart */
-.bear-heart{
-    position:absolute;
-    font-size:37px;
-    left:58px;
-    bottom:13px;
-    animation:heartBeat 1.4s infinite;
-}
-
-@keyframes heartBeat{
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.15)}
-}
-
-.bear-name{
-    position:absolute;
-    bottom:-15px;
-    width:100%;
-    text-align:center;
-    font-size:16px;
-    color:#f7c6d5;
-}
-
-/* SECTIONS */
 section{
-    min-height:80vh;
-    padding:90px 20px;
+    position:relative;
+    z-index:3;
+
+    min-height:100vh;
+
+    padding:
+        110px 20px
+        100px;
+
     display:flex;
     flex-direction:column;
     align-items:center;
+    justify-content:center;
+
     text-align:center;
-    position:relative;
 }
 
 .section-title{
     font-family:Georgia,serif;
-    font-size:42px;
+    font-size:clamp(35px,6vw,58px);
     font-weight:400;
-    margin-bottom:15px;
+    letter-spacing:.5px;
+
+    text-shadow:
+        0 0 20px rgba(255,190,210,.3);
+
+    margin-bottom:16px;
 }
 
 .section-sub{
+    max-width:650px;
     color:#eab8c8;
-    max-width:600px;
-    line-height:1.7;
-    margin-bottom:35px;
+    line-height:1.8;
+    margin-bottom:40px;
 }
 
-/* GLASS CARD */
-.card{
-    width:min(720px,94%);
-    padding:35px;
-    border-radius:28px;
-    background:rgba(35,10,30,.52);
-    border:1px solid rgba(255,210,225,.2);
-    box-shadow:0 20px 60px rgba(0,0,0,.25);
-    backdrop-filter:blur(12px);
+.glass{
+    width:min(850px,95%);
+    padding:40px;
+
+    border-radius:35px;
+
+    background:rgba(32,7,27,.52);
+    border:1px solid rgba(255,220,232,.18);
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.28),
+        inset 0 0 30px rgba(255,200,220,.025);
+
+    backdrop-filter:blur(15px);
 }
 
-/* MOOD BUTTONS */
-.moods{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:14px;
-    max-width:700px;
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:100vh;
+    padding-top:120px;
 }
 
-.mood{
-    padding:15px 21px;
-    border-radius:40px;
-    border:1px solid rgba(255,210,225,.3);
-    background:rgba(255,210,225,.08);
-    color:#ffeaf0;
-    cursor:pointer;
-    transition:.3s;
+.hero-moon{
+    position:absolute;
+
+    width:125px;
+    height:125px;
+
+    border-radius:50%;
+
+    background:#ffe8ef;
+
+    box-shadow:
+        0 0 25px #ffd8e4,
+        0 0 80px rgba(255,190,210,.35);
+
+    top:14%;
+    right:11%;
+
+    opacity:.9;
 }
 
-.mood:hover{
-    transform:translateY(-5px) rotate(-1deg);
-    background:rgba(255,190,215,.17);
+.hero-moon:after{
+    content:"";
+
+    position:absolute;
+
+    width:118px;
+    height:118px;
+
+    border-radius:50%;
+
+    background:#2e0c28;
+
+    left:30px;
+    top:-9px;
 }
 
-/* NOTE */
-.note{
-    margin-top:35px;
-    display:none;
-    text-align:left;
-    line-height:1.9;
-    color:#f9dce5;
-    font-size:16px;
-}
-
-.note.show{
-    display:block;
-    animation:noteIn .6s ease;
-}
-
-.note h3{
-    color:#ffc7d8;
-    font-family:Georgia,serif;
-    font-size:25px;
+.hero-eyebrow{
+    color:#eeb1c6;
+    letter-spacing:4px;
+    font-size:13px;
+    text-transform:uppercase;
     margin-bottom:18px;
 }
 
-@keyframes noteIn{
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-    to{
-        opacity:1;
+.hero h1{
+    font-family:Georgia,serif;
+    font-weight:400;
+
+    font-size:clamp(50px,9vw,100px);
+
+    line-height:.95;
+
+    margin-bottom:25px;
+
+    text-shadow:
+        0 0 35px rgba(255,190,215,.4);
+}
+
+.hero h1 span{
+    color:#f0b8cb;
+}
+
+.hero-text{
+    max-width:670px;
+    font-size:18px;
+    line-height:1.9;
+    color:#f4ced9;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:35px;
+}
+
+.primary-btn,
+.soft-btn{
+    border-radius:50px;
+    padding:15px 25px;
+    cursor:pointer;
+    transition:.35s;
+}
+
+.primary-btn{
+    border:1px solid rgba(255,220,230,.45);
+    background:rgba(255,205,225,.15);
+    color:white;
+}
+
+.soft-btn{
+    border:1px solid rgba(255,220,230,.2);
+    background:rgba(255,220,230,.06);
+    color:#efc1d0;
+}
+
+.primary-btn:hover,
+.soft-btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 35px rgba(0,0,0,.2);
+    background:rgba(255,205,225,.2);
+}
+
+
+/* =========================================================
+   FLUFFY BEAR
+========================================================= */
+
+.bear-wrap{
+    position:relative;
+    width:280px;
+    height:310px;
+    margin:30px auto 0;
+
+    animation:
+        bearFloat 3.2s ease-in-out infinite;
+}
+
+@keyframes bearFloat{
+    0%,100%{
         transform:translateY(0);
     }
+
+    50%{
+        transform:translateY(-12px);
+    }
 }
 
-/* LITTLE GIFTS */
-.gifts{
+.bear-shadow{
+    position:absolute;
+    width:150px;
+    height:28px;
+    border-radius:50%;
+    background:rgba(0,0,0,.28);
+    bottom:12px;
+    left:65px;
+    filter:blur(8px);
+}
+
+.bear{
+    position:absolute;
+
+    width:170px;
+    height:165px;
+
+    left:55px;
+    bottom:35px;
+
+    background:#fffdfb;
+
+    border-radius:
+        48% 48%
+        45% 45%;
+
+    box-shadow:
+        inset -12px -12px 0 #f1e2e4,
+        0 18px 35px rgba(0,0,0,.22);
+}
+
+/* ears */
+
+.ear{
+    position:absolute;
+
+    width:62px;
+    height:62px;
+
+    top:-30px;
+
+    background:#fffdfb;
+    border-radius:50%;
+
+    box-shadow:
+        inset -7px -6px 0 #f0dfe1;
+}
+
+.ear.left{
+    left:4px;
+}
+
+.ear.right{
+    right:4px;
+}
+
+.ear:after{
+    content:"";
+
+    position:absolute;
+    inset:14px;
+
+    border-radius:50%;
+    background:#f3cbd5;
+}
+
+
+/* eyes */
+
+.eye{
+    position:absolute;
+
+    width:10px;
+    height:13px;
+
+    top:60px;
+
+    border-radius:50%;
+    background:#392431;
+}
+
+.eye.left{
+    left:52px;
+}
+
+.eye.right{
+    right:52px;
+}
+
+
+/* face */
+
+.nose{
+    position:absolute;
+
+    width:15px;
+    height:10px;
+
+    left:78px;
+    top:78px;
+
+    background:#754255;
+    border-radius:50%;
+}
+
+.mouth{
+    position:absolute;
+
+    width:22px;
+    height:11px;
+
+    left:74px;
+    top:86px;
+
+    border-bottom:
+        2px solid #754255;
+
+    border-radius:50%;
+}
+
+.blush{
+    position:absolute;
+
+    width:28px;
+    height:13px;
+
+    top:78px;
+
+    border-radius:50%;
+
+    background:#f4bdca;
+    opacity:.65;
+}
+
+.blush.left{
+    left:22px;
+}
+
+.blush.right{
+    right:22px;
+}
+
+
+/* paws */
+
+.paw{
+    position:absolute;
+
+    width:48px;
+    height:70px;
+
+    bottom:4px;
+
+    border-radius:50%;
+
+    background:#fffdfb;
+
+    box-shadow:
+        inset -6px -5px 0 #f0e0e2;
+}
+
+.paw.left{
+    left:-20px;
+    transform:rotate(25deg);
+}
+
+.paw.right{
+    right:-20px;
+    transform:rotate(-25deg);
+}
+
+
+/* belly heart */
+
+.bear-heart{
+    position:absolute;
+
+    font-size:43px;
+
+    left:62px;
+    bottom:12px;
+
+    animation:heartBeat 1.5s infinite;
+}
+
+@keyframes heartBeat{
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.18);
+    }
+}
+
+
+/* bear accessories */
+
+.bear-blanket{
+    position:absolute;
+
+    width:175px;
+    height:90px;
+
+    left:48px;
+    bottom:20px;
+
+    border-radius:
+        55px 55px
+        30px 30px;
+
+    background:
+        rgba(208,173,190,.8);
+
+    transform:rotate(-3deg);
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:.4s;
+}
+
+.bear-wrap.blanket .bear-blanket{
+    opacity:1;
+}
+
+.bear-wrap.blanket .bear{
+    transform:translateY(-3px);
+}
+
+.bear-label{
+    position:absolute;
+    bottom:-2px;
+    width:100%;
+
+    font-size:15px;
+    color:#f0bdce;
+}
+
+
+/* =========================================================
+   MOOD SECTION
+========================================================= */
+
+.mood-grid{
+    width:min(850px,95%);
+
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-    gap:18px;
-    width:min(750px,95%);
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(145px,1fr));
+
+    gap:15px;
 }
 
-.gift{
+.mood-card{
     min-height:125px;
-    border-radius:22px;
-    background:rgba(255,220,235,.09);
-    border:1px solid rgba(255,220,235,.18);
+
+    border-radius:25px;
+
+    border:1px solid rgba(255,215,228,.16);
+
+    background:rgba(255,215,230,.065);
+
+    color:#ffeef3;
+
+    cursor:pointer;
+
+    transition:.35s;
+
     display:flex;
     align-items:center;
     justify-content:center;
     flex-direction:column;
+
     gap:8px;
-    cursor:pointer;
-    transition:.35s;
-    font-size:16px;
+
+    padding:15px;
 }
 
-.gift span{
-    font-size:38px;
+.mood-card .emoji{
+    font-size:36px;
+}
+
+.mood-card:hover{
+    transform:
+        translateY(-8px)
+        rotate(-1deg);
+
+    background:
+        rgba(255,210,228,.14);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.2);
+}
+
+.mood-response{
+    margin-top:35px;
+    width:min(750px,95%);
+}
+
+.response-inner{
+    padding:30px;
+
+    border-radius:30px;
+
+    background:rgba(35,8,29,.58);
+
+    border:
+        1px solid
+        rgba(255,215,228,.18);
+
+    line-height:1.9;
+
+    color:#f8dce4;
+
+    display:none;
+}
+
+.response-inner.show{
+    display:block;
+    animation:appear .6s ease;
+}
+
+.response-inner h3{
+    color:#ffc5d6;
+    font-family:Georgia,serif;
+    font-size:27px;
+    margin-bottom:15px;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.98);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   WHAT DO YOU NEED
+========================================================= */
+
+.need-grid{
+    width:min(900px,95%);
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(190px,1fr));
+
+    gap:18px;
+}
+
+.need{
+    min-height:170px;
+
+    border-radius:30px;
+
+    padding:25px;
+
+    border:
+        1px solid
+        rgba(255,215,228,.17);
+
+    background:
+        rgba(255,215,228,.065);
+
+    cursor:pointer;
+
+    transition:.35s;
+}
+
+.need:hover{
+    transform:translateY(-8px);
+    background:rgba(255,215,228,.13);
+}
+
+.need-icon{
+    font-size:45px;
+    margin-bottom:12px;
+}
+
+.need h3{
+    color:#ffd2de;
+    font-family:Georgia,serif;
+    font-size:21px;
+    margin-bottom:8px;
+}
+
+.need p{
+    color:#dcaebe;
+    font-size:13px;
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   LONG NOTES
+========================================================= */
+
+.note-stack{
+    width:min(850px,95%);
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.note-card{
+    text-align:left;
+
+    padding:32px;
+
+    border-radius:28px;
+
+    background:
+        rgba(38,9,31,.55);
+
+    border:
+        1px solid
+        rgba(255,215,228,.17);
+
+    cursor:pointer;
+
+    transition:.4s;
+}
+
+.note-card:hover{
+    transform:translateX(6px);
+    background:rgba(45,11,36,.65);
+}
+
+.note-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.note-head h3{
+    font-family:Georgia,serif;
+    color:#ffc9d8;
+    font-size:24px;
+    font-weight:400;
+}
+
+.note-open{
+    color:#e9aabd;
+    font-size:13px;
+}
+
+.note-body{
+    display:none;
+
+    margin-top:22px;
+
+    color:#f4d8e1;
+
+    line-height:2;
+}
+
+.note-card.open .note-body{
+    display:block;
+    animation:appear .5s ease;
+}
+
+
+/* =========================================================
+   GIFTS
+========================================================= */
+
+.gift-grid{
+    width:min(900px,95%);
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(140px,1fr));
+
+    gap:18px;
+}
+
+.gift{
+    min-height:145px;
+
+    border-radius:28px;
+
+    background:
+        rgba(255,215,230,.065);
+
+    border:
+        1px solid
+        rgba(255,215,230,.16);
+
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+
+    transition:.4s;
 }
 
 .gift:hover{
-    transform:translateY(-7px) rotate(1deg);
-    background:rgba(255,210,230,.16);
+    transform:
+        translateY(-8px)
+        rotate(2deg);
+
+    background:
+        rgba(255,215,230,.14);
 }
 
-/* STAR CONSTELLATION */
-.constellation{
+.gift-icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.gift span{
+    color:#efbfd0;
+}
+
+
+/* =========================================================
+   FLOWER GARDEN
+========================================================= */
+
+.garden{
+    width:min(900px,95%);
+
+    min-height:400px;
+
+    border-radius:40px;
+
+    background:
+        linear-gradient(
+            rgba(25,5,22,.2),
+            rgba(25,5,22,.55)
+        );
+
+    border:
+        1px solid
+        rgba(255,215,228,.13);
+
     position:relative;
-    width:min(700px,95%);
-    height:330px;
-    border-radius:30px;
-    background:rgba(20,5,20,.4);
-    border:1px solid rgba(255,220,235,.15);
     overflow:hidden;
+}
+
+.garden-star{
+    position:absolute;
+    font-size:18px;
+    animation:twinkle 2s infinite alternate;
+}
+
+.flower{
+    position:absolute;
+
+    cursor:pointer;
+
+    font-size:42px;
+
+    transition:.4s;
+
+    animation:
+        flowerFloat 3s ease-in-out infinite;
+}
+
+.flower:hover{
+    transform:
+        scale(1.25)
+        rotate(8deg);
+}
+
+@keyframes flowerFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+.flower:nth-child(2){left:10%;bottom:20%;animation-delay:.3s}
+.flower:nth-child(3){left:25%;bottom:10%;animation-delay:1s}
+.flower:nth-child(4){left:43%;bottom:25%;animation-delay:.6s}
+.flower:nth-child(5){left:60%;bottom:12%;animation-delay:1.3s}
+.flower:nth-child(6){left:77%;bottom:23%;animation-delay:.8s}
+.flower:nth-child(7){left:88%;bottom:8%;animation-delay:1.6s}
+
+
+/* =========================================================
+   CONSTELLATION
+========================================================= */
+
+.constellation{
+    width:min(850px,95%);
+    height:450px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:40px;
+
+    background:
+        rgba(14,3,15,.38);
+
+    border:
+        1px solid
+        rgba(255,220,232,.16);
 }
 
 .constellation-star{
     position:absolute;
-    width:13px;
-    height:13px;
-    background:#ffe6ee;
+
+    width:15px;
+    height:15px;
+
     border-radius:50%;
-    box-shadow:0 0 15px #ffc8da;
+
+    background:#ffeef3;
+
+    box-shadow:
+        0 0 20px #ffd0df;
+
     cursor:pointer;
+
     transition:.3s;
+
+    z-index:2;
 }
 
 .constellation-star:hover{
     transform:scale(1.8);
 }
 
-.line{
+.constellation-line{
     position:absolute;
+
     height:2px;
-    background:rgba(255,190,215,.45);
+
+    background:
+        rgba(255,192,215,.55);
+
     transform-origin:left center;
+
     display:none;
+
+    z-index:1;
 }
 
-/* DOODLE MESSAGE */
-.doodle{
-    font-size:70px;
-    margin-bottom:10px;
-    animation:bounce 2s infinite;
-}
 
-@keyframes bounce{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-12px) rotate(3deg)}
-}
+/* =========================================================
+   BEAR COMEDY
+========================================================= */
 
-.doodle-box{
-    width:min(650px,95%);
+.comedy-box{
+    width:min(700px,95%);
+
+    min-height:350px;
+
     padding:35px;
-    border-radius:30px;
-    background:rgba(30,8,25,.55);
-    border:1px solid rgba(255,215,225,.2);
+
+    border-radius:35px;
+
+    background:
+        rgba(35,8,29,.58);
+
+    border:
+        1px solid
+        rgba(255,215,228,.18);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
 }
 
-/* MODAL */
+.comedy-bear{
+    font-size:90px;
+
+    animation:
+        comedyBounce 1.7s infinite;
+}
+
+@keyframes comedyBounce{
+    0%,100%{
+        transform:rotate(0);
+    }
+
+    25%{
+        transform:rotate(-7deg);
+    }
+
+    75%{
+        transform:rotate(7deg);
+    }
+}
+
+.comedy-text{
+    margin:25px 0;
+
+    max-width:530px;
+
+    color:#f5d8e1;
+
+    line-height:1.9;
+
+    font-size:17px;
+}
+
+
+/* =========================================================
+   HUG MACHINE
+========================================================= */
+
+.hug-machine{
+    width:min(700px,95%);
+
+    padding:45px 25px;
+
+    border-radius:40px;
+
+    background:
+        rgba(35,8,29,.58);
+
+    border:
+        1px solid
+        rgba(255,215,228,.18);
+}
+
+.hug-heart{
+    font-size:100px;
+
+    display:inline-block;
+
+    filter:
+        drop-shadow(
+            0 0 25px
+            rgba(255,160,195,.5)
+        );
+
+    animation:heartBig 1.4s infinite;
+}
+
+@keyframes heartBig{
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.15);
+    }
+}
+
+.hug-text{
+    font-family:Georgia,serif;
+    font-size:25px;
+    color:#ffcbd9;
+    margin:20px 0;
+}
+
+
+/* =========================================================
+   WISH
+========================================================= */
+
+.wish-area{
+    width:min(750px,95%);
+
+    padding:45px;
+
+    border-radius:40px;
+
+    background:
+        rgba(35,8,29,.55);
+
+    border:
+        1px solid
+        rgba(255,215,228,.18);
+}
+
+.wish-star{
+    font-size:85px;
+    cursor:pointer;
+    display:inline-block;
+
+    transition:.3s;
+
+    animation:
+        wishPulse 2s infinite;
+}
+
+@keyframes wishPulse{
+    0%,100%{
+        filter:drop-shadow(0 0 8px rgba(255,220,230,.3));
+    }
+
+    50%{
+        filter:drop-shadow(0 0 30px rgba(255,220,230,.8));
+    }
+}
+
+.wish-star:hover{
+    transform:scale(1.15) rotate(8deg);
+}
+
+.wish-result{
+    display:none;
+
+    margin-top:25px;
+
+    color:#f5d9e2;
+
+    line-height:1.9;
+}
+
+.wish-result.show{
+    display:block;
+    animation:appear .7s ease;
+}
+
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.final{
+    min-height:100vh;
+}
+
+.final-card{
+    width:min(850px,95%);
+
+    padding:50px 40px;
+
+    border-radius:40px;
+
+    background:
+        rgba(32,7,27,.62);
+
+    border:
+        1px solid
+        rgba(255,215,228,.2);
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.3);
+}
+
+.final-bear{
+    font-size:100px;
+
+    animation:
+        bearFinal 3s ease-in-out infinite;
+}
+
+@keyframes bearFinal{
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-15px);
+    }
+}
+
+.final-card h2{
+    font-family:Georgia,serif;
+    font-weight:400;
+
+    font-size:
+        clamp(35px,6vw,58px);
+
+    color:#ffd0dd;
+
+    margin:20px 0 25px;
+}
+
+.final-card p{
+    max-width:690px;
+
+    margin:auto;
+
+    line-height:2;
+
+    color:#f4d8e1;
+
+    font-size:17px;
+}
+
+.final-sign{
+    margin-top:30px;
+
+    color:#efb6c9;
+
+    font-family:Georgia,serif;
+
+    font-size:20px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    position:relative;
+    z-index:3;
+
+    text-align:center;
+
+    padding:70px 20px;
+
+    color:#c994a8;
+
+    line-height:2;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
 .modal{
     position:fixed;
+
     inset:0;
-    background:rgba(15,3,13,.72);
-    backdrop-filter:blur(8px);
+
+    background:
+        rgba(12,2,11,.75);
+
+    backdrop-filter:blur(10px);
+
     display:none;
-    justify-content:center;
+
     align-items:center;
-    z-index:20;
+    justify-content:center;
+
     padding:20px;
+
+    z-index:100;
 }
 
 .modal.show{
@@ -496,101 +1345,278 @@ section{
 }
 
 .modal-card{
-    max-width:550px;
-    width:100%;
+    width:min(600px,95%);
+
     padding:40px;
-    border-radius:30px;
-    background:#321126;
-    border:1px solid rgba(255,205,220,.25);
+
+    border-radius:35px;
+
+    background:#321027;
+
+    border:
+        1px solid
+        rgba(255,215,228,.25);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.5);
+
     text-align:center;
-    box-shadow:0 25px 80px rgba(0,0,0,.5);
+
     animation:modalIn .45s ease;
+}
+
+.modal-card .modal-icon{
+    font-size:65px;
+    margin-bottom:15px;
 }
 
 .modal-card h2{
     font-family:Georgia,serif;
-    color:#ffc8d8;
-    margin-bottom:20px;
+    color:#ffc9d8;
+    font-size:30px;
+    font-weight:400;
+    margin-bottom:18px;
 }
 
 .modal-card p{
-    line-height:1.8;
-    color:#f8dbe4;
+    color:#f4d8e1;
+    line-height:1.9;
 }
 
 .close{
     margin-top:25px;
-    padding:11px 22px;
+
+    padding:12px 25px;
+
     border-radius:30px;
-    border:1px solid rgba(255,210,225,.25);
-    background:rgba(255,220,235,.1);
+
+    border:
+        1px solid
+        rgba(255,215,228,.2);
+
+    background:
+        rgba(255,215,228,.08);
+
     color:white;
+
     cursor:pointer;
 }
 
 @keyframes modalIn{
-    from{opacity:0;transform:scale(.9)}
-    to{opacity:1;transform:scale(1)}
+    from{
+        opacity:0;
+        transform:scale(.9) translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
 }
 
-/* FOOTER */
-footer{
-    padding:60px 20px;
-    text-align:center;
-    color:#dcaebe;
+
+/* =========================================================
+   SECRET
+========================================================= */
+
+.secret-button{
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    z-index:15;
+
+    width:54px;
+    height:54px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,215,228,.25);
+
+    background:
+        rgba(40,10,33,.7);
+
+    color:#f5c4d3;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(10px);
+
+    transition:.3s;
 }
 
-@media(max-width:600px){
-    .moon{
+.secret-button:hover{
+    transform:rotate(15deg) scale(1.08);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:650px){
+
+    .nav{
+        display:none;
+    }
+
+    section{
+        padding:
+            90px 15px
+            75px;
+    }
+
+    .hero-moon{
         width:75px;
         height:75px;
         right:7%;
+        top:10%;
     }
 
-    .moon:after{
+    .hero-moon:after{
         width:72px;
         height:72px;
         left:19px;
         top:-5px;
     }
 
-    .section-title{
-        font-size:34px;
+    .hero h1{
+        font-size:54px;
     }
 
-    .card{
+    .hero-text{
+        font-size:16px;
+    }
+
+    .glass,
+    .final-card{
+        padding:28px 20px;
+    }
+
+    .bear-wrap{
+        transform:scale(.85);
+        margin-bottom:-10px;
+    }
+
+    .bear-wrap:hover{
+        transform:scale(.9);
+    }
+
+    .constellation{
+        height:350px;
+    }
+
+    .wish-area{
+        padding:35px 20px;
+    }
+
+    .note-card{
         padding:25px 20px;
     }
+
+    .note-head h3{
+        font-size:20px;
+    }
 }
+
 </style>
 </head>
 
+
 <body>
 
-<div class="overlay"></div>
 
-<!-- STARS -->
-<div class="star" style="top:8%;left:10%"></div>
-<div class="star" style="top:17%;left:38%"></div>
-<div class="star" style="top:31%;left:82%"></div>
-<div class="star" style="top:46%;left:18%"></div>
-<div class="star" style="top:58%;left:73%"></div>
-<div class="star" style="top:72%;left:42%"></div>
-<div class="star" style="top:84%;left:88%"></div>
+<!-- =====================================================
+     ATMOSPHERE
+===================================================== -->
 
-<!-- FLOATING HEARTS -->
-<div class="float" style="left:8%;animation-duration:12s">♡</div>
-<div class="float" style="left:24%;animation-duration:16s;animation-delay:3s">♡</div>
-<div class="float" style="left:53%;animation-duration:14s;animation-delay:5s">♡</div>
-<div class="float" style="left:76%;animation-duration:18s;animation-delay:2s">♡</div>
-<div class="float" style="left:91%;animation-duration:13s;animation-delay:7s">♡</div>
+<div id="stars"></div>
+<div id="particles"></div>
 
-<!-- HERO -->
-<div class="hero">
+<div class="shooting-star" id="shootingStar"></div>
 
-    <div class="moon"></div>
 
-    <div class="bear-area">
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<div class="nav">
+
+    <button onclick="go('home')">🌙 Home</button>
+    <button onclick="go('mood')">💗 Mood</button>
+    <button onclick="go('needs')">🫂 Comfort</button>
+    <button onclick="go('notes')">💌 Notes</button>
+    <button onclick="go('fun')">😂 Fun</button>
+    <button onclick="go('final')">✨ End</button>
+
+</div>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero" id="home">
+
+    <div class="hero-moon"></div>
+
+    <div class="hero-eyebrow">
+        a tiny universe made just for you
+    </div>
+
+    <h1>
+        Anu's<br>
+        <span>Little Galaxy</span> ♡
+    </h1>
+
+    <p class="hero-text">
+
+        Hey Anu... 🌙<br><br>
+
+        I know every day isn't automatically a good day,
+        so I made this little place for the days when you
+        need a smile, a distraction, a little comfort,
+        or simply somewhere peaceful to stay for a few minutes.
+
+        <br><br>
+
+        And yes... there is a fluffy bear involved. 🧸
+
+    </p>
+
+
+    <div class="hero-buttons">
+
+        <button
+            class="primary-btn"
+            onclick="go('mood')">
+
+            Let's fix the mood ✨
+
+        </button>
+
+        <button
+            class="soft-btn"
+            onclick="makeHearts()">
+
+            Sprinkle some love ♡
+
+        </button>
+
+    </div>
+
+
+    <!-- FLUFFY BEAR -->
+
+    <div class="bear-wrap" id="mainBear">
+
+        <div class="bear-shadow"></div>
+
+        <div class="bear-blanket"></div>
+
         <div class="bear">
 
             <div class="ear left"></div>
@@ -608,164 +1634,318 @@ footer{
             <div class="paw left"></div>
             <div class="paw right"></div>
 
-            <div class="bear-heart">♡</div>
+            <div class="bear-heart">
+                ♡
+            </div>
+
         </div>
 
-        <div class="bear-name">your fluffy little guardian 🧸</div>
+        <div class="bear-label">
+            fluffy bear is waiting for you 🧸
+        </div>
+
     </div>
 
-    <h1>Anu's Little Galaxy ♡</h1>
-
-    <p>
-        Hey Anu... 🌙<br>
-        I made you a tiny little universe to visit whenever
-        you need a smile, a distraction, or just a soft place
-        to breathe for a while.
-    </p>
-
-    <button class="enter" onclick="document.getElementById('mood').scrollIntoView()">
-        Enter my little galaxy ✨
-    </button>
-
-</div>
+</section>
 
 
-<!-- MOOD -->
+
+<!-- =====================================================
+     MOOD
+===================================================== -->
+
 <section id="mood">
 
-    <h2 class="section-title">First... how are you feeling? 🌙</h2>
+    <h2 class="section-title">
+        Okay... tell me honestly 🌙
+    </h2>
 
     <p class="section-sub">
-        Be honest. The fluffy bear promises he won't judge you.
-        He is emotionally incapable of judging anyone.
+
+        No pretending. No “I'm fine” if you're not.
+        Pick whatever feels closest right now.
+
     </p>
 
-    <div class="moods">
 
-        <button class="mood" onclick="showNote('bad')">🥺 Not good</button>
-        <button class="mood" onclick="showNote('meh')">😐 Meh</button>
-        <button class="mood" onclick="showNote('tired')">😴 Tired</button>
-        <button class="mood" onclick="showNote('annoyed')">😤 Annoyed</button>
-        <button class="mood" onclick="showNote('verybad')">😭 Very bad</button>
-        <button class="mood" onclick="showNote('okay')">😌 Actually okay</button>
+    <div class="mood-grid">
+
+        <button class="mood-card"
+            onclick="mood('sad')">
+
+            <div class="emoji">🥺</div>
+            <b>Not feeling good</b>
+
+        </button>
+
+
+        <button class="mood-card"
+            onclick="mood('tired')">
+
+            <div class="emoji">😴</div>
+            <b>I'm tired</b>
+
+        </button>
+
+
+        <button class="mood-card"
+            onclick="mood('overthink')">
+
+            <div class="emoji">🌪️</div>
+            <b>Brain won't stop</b>
+
+        </button>
+
+
+        <button class="mood-card"
+            onclick="mood('annoyed')">
+
+            <div class="emoji">😤</div>
+            <b>I'm annoyed</b>
+
+        </button>
+
+
+        <button class="mood-card"
+            onclick="mood('quiet')">
+
+            <div class="emoji">🌙</div>
+            <b>I want quiet</b>
+
+        </button>
+
+
+        <button class="mood-card"
+            onclick="mood('good')">
+
+            <div class="emoji">✨</div>
+            <b>Actually okay!</b>
+
+        </button>
 
     </div>
 
-    <div class="card">
 
-        <div id="bad" class="note">
-            <h3>Come here for a tiny minute 🫂</h3>
+    <div class="mood-response">
+
+        <div class="response-inner" id="sad">
+
+            <h3>Come sit here for a minute 🫂</h3>
 
             <p>
-                Hey Anu, if today just isn't feeling right, that's okay.
-                You don't have to force yourself to suddenly become happy
-                just because someone expects you to. Sometimes you can
-                simply have a weird day, feel tired, feel quiet, or not
-                even know exactly what's wrong.
+
+                You don't have to force yourself to suddenly feel
+                amazing just because you opened this website.
+                Sometimes a day simply feels heavy, and sometimes
+                you don't even know exactly why.
+
                 <br><br>
-                So don't put pressure on yourself to fix everything at once.
-                Take a breath, get comfortable, and give yourself a little
-                softness today. One difficult moment doesn't define your
-                whole day, and one difficult day doesn't change how special
-                you are.
+
+                That's okay.
+
                 <br><br>
-                Your fluffy bear has officially prescribed one warm hug,
-                some rest, and absolutely no unnecessary overthinking. 🧸🌷
+
+                You can slow down for a little while.
+                You can breathe. You can be quiet. You can let
+                yourself feel whatever you're feeling without
+                turning it into a reason to be hard on yourself.
+
+                <br><br>
+
+                One difficult day doesn't erase all the good things
+                about you. You're still the same caring, sweet,
+                wonderfully silly Anu.
+
+                <br><br>
+
+                So here's your official fluffy-bear prescription:
+                one blanket, one peaceful song, one proper break,
+                and absolutely zero unnecessary pressure. 🧸🌷
+
             </p>
+
         </div>
 
-        <div id="meh" class="note">
-            <h3>For the “meh” days 🌷</h3>
+
+        <div class="response-inner" id="tired">
+
+            <h3>Sleepy bear says: REST. 💤</h3>
 
             <p>
-                You know those days where nothing is particularly terrible,
-                but everything just feels... meh?
-                Yeah. Those days deserve a little something too.
+
+                You don't have to keep pushing yourself every second.
+                Being tired doesn't mean you're lazy, weak, or doing
+                something wrong.
+
                 <br><br>
-                You don't always need some huge exciting thing to make
-                everything better. Sometimes a small laugh, a favourite
-                song, a comfortable blanket, or a few peaceful minutes
-                can be enough to make the day feel a little lighter.
+
+                Sometimes your mind just needs somewhere quiet to land.
+
                 <br><br>
-                So here's your reminder that you're allowed to slow down.
-                You don't have to make every day extraordinary.
-                Sometimes an ordinary, peaceful day is more than enough. ♡
+
+                Put everything down for a little while.
+                Get comfortable. Let your shoulders relax.
+                Take a slow breath.
+
+                <br><br>
+
+                You can deal with tomorrow's problems when tomorrow
+                actually arrives. Tonight doesn't need to carry
+                everything at once.
+
+                <br><br>
+
+                Fluffy Bear has already gone under the blanket.
+                He's waiting for you. 🧸🌙
+
             </p>
+
         </div>
 
-        <div id="tired" class="note">
-            <h3>Okay sleepyhead... 🌙</h3>
+
+        <div class="response-inner" id="overthink">
+
+            <h3>Hey... come back to the present 🌷</h3>
 
             <p>
-                If you're tired, please don't treat yourself like a machine
-                that is supposed to keep going forever. You have a brain,
-                feelings, responsibilities, thoughts, and approximately
-                seventeen thousand things happening at once.
+
+                Sometimes the brain takes one tiny thought and turns
+                it into an entire movie with seventeen different
+                endings.
+
                 <br><br>
-                It's completely okay to pause.
-                Rest isn't something you have to earn by becoming completely
-                exhausted first. Give yourself a little time to breathe,
-                put everything down for a while, and let your mind become
-                quiet.
+
+                But a thought isn't automatically a fact.
+                And you don't have to solve every possibility your
+                brain can imagine.
+
                 <br><br>
-                The fluffy bear is already under his blanket.
-                He's waiting for you. 🧸💤
+
+                Take one breath.
+
+                Look around you.
+
+                Notice where you are.
+
+                Let this exact moment be just this exact moment.
+
+                <br><br>
+
+                You don't have to figure out everything tonight.
+                Give your mind permission to rest for a while. 🫂
+
             </p>
+
         </div>
 
-        <div id="annoyed" class="note">
-            <h3>Angry little Anu detected 😭</h3>
+
+        <div class="response-inner" id="annoyed">
+
+            <h3>Angry little bear department activated 😭</h3>
 
             <p>
-                Okay okay... nobody is asking you to become sunshine
-                immediately. If something annoyed you, you can be annoyed.
-                Take your time.
+
+                Okay okay... you're allowed to be annoyed.
+
                 <br><br>
-                But before you let one annoying thing ruin your entire
-                evening, come sit here for a second. Take a breath,
-                unclench your shoulders, and let the moment pass a little.
-                You don't have to solve everything while you're frustrated.
+
+                You don't need to immediately turn into a calm,
+                perfectly peaceful person just because this website
+                told you to.
+
                 <br><br>
-                And if nothing else works, please blame the fluffy bear.
-                He probably caused it somehow. 🧸😭
+
+                Take a little space.
+                Breathe.
+                Let the first wave of frustration pass before trying
+                to solve anything.
+
+                <br><br>
+
+                And if that doesn't work...
+
+                <br><br>
+
+                Fluffy Bear recommends staring dramatically into
+                the distance for exactly seven seconds.
+
+                He has no qualifications whatsoever.
+
+                😂🧸
+
             </p>
+
         </div>
 
-        <div id="verybad" class="note">
-            <h3>Okay... no fixing everything right now 🫂</h3>
+
+        <div class="response-inner" id="quiet">
+
+            <h3>Then let's keep it quiet 🌙</h3>
 
             <p>
-                If you're having a really rough moment, you don't need to
-                pretend that everything is fine just for this website.
-                Take things one little moment at a time.
+
+                You don't have to talk.
+
                 <br><br>
-                You don't have to figure out the entire day right now.
-                Just focus on the next small thing you can do for yourself:
-                breathe, sit somewhere comfortable, drink some water,
-                rest for a bit, or talk to someone you trust if you want to.
+
+                You don't have to explain what's going on.
+                You don't have to entertain anyone.
+                You don't have to make yourself feel better
+                immediately.
+
                 <br><br>
-                And remember — a difficult moment can feel huge while you're
-                inside it, but moments change. Give yourself time and
-                gentleness. 🌷
+
+                Just stay here for a little while.
+
+                <br><br>
+
+                Look at the stars.
+                Watch the little bear breathe.
+                Let the music in your head become a little quieter.
+
+                <br><br>
+
+                Sometimes peace doesn't need a big explanation.
+                Sometimes it just needs a few quiet minutes. ♡
+
             </p>
+
         </div>
 
-        <div id="okay" class="note">
-            <h3>WAIT... she's actually okay?! 😭✨</h3>
+
+        <div class="response-inner" id="good">
+
+            <h3>WAITTT she's having a good day?! 😭✨</h3>
 
             <p>
-                The fluffy bear has been informed and is celebrating
-                accordingly.
+
+                ALERT THE GALAXY.
+
                 <br><br>
-                Honestly, if you're having a good day, don't rush past it.
-                Enjoy it. Laugh a little louder, listen to something you
-                like, annoy someone affectionately, stare at the sky,
-                eat something nice, or simply enjoy the fact that your brain
-                decided to cooperate today.
+
+                The stars have been informed.
+                The moon has been informed.
+                Fluffy Bear is doing approximately seventeen
+                victory dances.
+
                 <br><br>
-                And yes, this website still demands one smile from you.
-                It's legally required. 🧸💗
+
+                If today feels good, enjoy it.
+                Don't rush through it thinking about what comes next.
+
+                <br><br>
+
+                Laugh.
+                Listen to something you love.
+                Do something silly.
+                Enjoy the little things.
+
+                <br><br>
+
+                You deserve good moments too. 🌷✨
+
             </p>
+
         </div>
 
     </div>
@@ -773,46 +1953,108 @@ footer{
 </section>
 
 
-<!-- LITTLE GIFTS -->
-<section>
 
-    <h2 class="section-title">Tiny gifts for you 🎁</h2>
+<!-- =====================================================
+     WHAT DO YOU NEED
+===================================================== -->
+
+<section id="needs">
+
+    <h2 class="section-title">
+        What do you need right now? 🧸
+    </h2>
 
     <p class="section-sub">
-        None of these are particularly useful.  
-        That's what makes them perfect.
+
+        Fluffy Bear has prepared several extremely professional
+        solutions.
+
     </p>
 
-    <div class="gifts">
 
-        <div class="gift" onclick="openGift('hug')">
-            <span>🫂</span>
-            A hug
+    <div class="need-grid">
+
+        <div class="need"
+             onclick="need('hug')">
+
+            <div class="need-icon">🫂</div>
+
+            <h3>I need a hug</h3>
+
+            <p>
+                Deploy the fluffy bear immediately.
+            </p>
+
         </div>
 
-        <div class="gift" onclick="openGift('flower')">
-            <span>🌷</span>
-            A flower
+
+        <div class="need"
+             onclick="need('smile')">
+
+            <div class="need-icon">😂</div>
+
+            <h3>Make me smile</h3>
+
+            <p>
+                Warning: extremely silly content.
+            </p>
+
         </div>
 
-        <div class="gift" onclick="openGift('bear')">
-            <span>🧸</span>
-            Bear wisdom
+
+        <div class="need"
+             onclick="need('love')">
+
+            <div class="need-icon">💗</div>
+
+            <h3>I need something sweet</h3>
+
+            <p>
+                A tiny little reminder for you.
+            </p>
+
         </div>
 
-        <div class="gift" onclick="openGift('star')">
-            <span>⭐</span>
-            A star
+
+        <div class="need"
+             onclick="need('distract')">
+
+            <div class="need-icon">✨</div>
+
+            <h3>Distract me</h3>
+
+            <p>
+                Let's go somewhere else for a minute.
+            </p>
+
         </div>
 
-        <div class="gift" onclick="openGift('secret')">
-            <span>🎀</span>
-            Secret
+
+        <div class="need"
+             onclick="need('rest')">
+
+            <div class="need-icon">🌙</div>
+
+            <h3>I want peace</h3>
+
+            <p>
+                Quiet galaxy mode activated.
+            </p>
+
         </div>
 
-        <div class="gift" onclick="openGift('silly')">
-            <span>😂</span>
-            Something silly
+
+        <div class="need"
+             onclick="need('surprise')">
+
+            <div class="need-icon">🎁</div>
+
+            <h3>Surprise me</h3>
+
+            <p>
+                No hints. Just click.
+            </p>
+
         </div>
 
     </div>
@@ -820,33 +2062,579 @@ footer{
 </section>
 
 
-<!-- DOODLE BEAR -->
-<section>
 
-    <div class="doodle">🧸</div>
+<!-- =====================================================
+     LONG NOTES
+===================================================== -->
 
-    <h2 class="section-title">The Doodle Department</h2>
+<section id="notes">
+
+    <h2 class="section-title">
+        Little letters for you 💌
+    </h2>
 
     <p class="section-sub">
-        The most important meeting in the entire galaxy has begun.
+
+        These are for the moments when you need words instead
+        of another button.
+
     </p>
 
-    <div class="doodle-box">
 
-        <p id="meeting" style="line-height:2;font-size:17px;">
-            🧸 <b>Fluffy Bear:</b> “I think Anu needs a hug.”
-            <br><br>
-            🌷 <b>Flower:</b> “Agreed.”
-            <br><br>
-            ⭐ <b>Star:</b> “Maybe also something cute.”
-            <br><br>
-            🧸 <b>Fluffy Bear:</b> “And snacks.”
-            <br><br>
-            ⭐ <b>Star:</b> “Very important.”
-        </p>
+    <div class="note-stack">
 
-        <button class="enter" onclick="meeting()">
-            Continue the meeting 😂
+
+        <div class="note-card"
+             onclick="toggleNote(this)">
+
+            <div class="note-head">
+
+                <h3>
+                    Open when today feels heavy 🫂
+                </h3>
+
+                <span class="note-open">
+                    tap to open
+                </span>
+
+            </div>
+
+
+            <div class="note-body">
+
+                Hey Anu,
+
+                <br><br>
+
+                If today hasn't been particularly kind to you,
+                I hope you don't feel like you have to carry the
+                whole day perfectly. You don't have to smile through
+                every difficult moment, and you don't have to pretend
+                that something doesn't bother you just because you
+                wish it didn't.
+
+                <br><br>
+
+                Give yourself some room today. Let yourself be tired.
+                Let yourself be quiet. Take a break from trying to
+                figure everything out.
+
+                <br><br>
+
+                There are going to be days that feel beautiful and
+                days that feel messy, and neither one changes your
+                worth. A difficult day is just a difficult day.
+                It isn't a definition of you.
+
+                <br><br>
+
+                So for tonight, don't ask yourself to fix everything.
+                Just take one small step toward feeling comfortable
+                again.
+
+                <br><br>
+
+                And if nothing else, remember that somewhere in this
+                ridiculous little galaxy, a fluffy white bear is
+                sitting under a blanket waiting to remind you that
+                you're cared for. 🧸🤍
+
+            </div>
+
+        </div>
+
+
+
+        <div class="note-card"
+             onclick="toggleNote(this)">
+
+            <div class="note-head">
+
+                <h3>
+                    Open when you're overthinking 🌙
+                </h3>
+
+                <span class="note-open">
+                    tap to open
+                </span>
+
+            </div>
+
+
+            <div class="note-body">
+
+                Hey, breathe for a second.
+
+                <br><br>
+
+                I know your brain can sometimes take one small thought
+                and keep adding questions to it until suddenly there
+                are a hundred different possibilities running around
+                your head.
+
+                <br><br>
+
+                But you don't need to answer all of them right now.
+
+                <br><br>
+
+                Not every thought deserves an immediate answer.
+                Not every possibility is a prediction.
+                And not every quiet moment means something is wrong.
+
+                <br><br>
+
+                Come back to what's actually happening right now.
+                Look around. Take a breath. Give your mind a little
+                space before believing everything it tells you.
+
+                <br><br>
+
+                You deserve peaceful moments too, Anu.
+                So let this be one of them. 🫂
+
+            </div>
+
+        </div>
+
+
+
+        <div class="note-card"
+             onclick="toggleNote(this)">
+
+            <div class="note-head">
+
+                <h3>
+                    Open when you need reassurance 🌷
+                </h3>
+
+                <span class="note-open">
+                    tap to open
+                </span>
+
+            </div>
+
+
+            <div class="note-body">
+
+                You don't need to become a different version of yourself
+                to deserve care.
+
+                <br><br>
+
+                You don't have to always know what you're feeling.
+                You don't have to always know what to say.
+                You don't have to have everything together every day.
+
+                <br><br>
+
+                Being tired doesn't make you less lovable.
+                Having an off day doesn't make you difficult.
+                Needing some extra reassurance doesn't make you a burden.
+
+                <br><br>
+
+                You're allowed to be human.
+
+                <br><br>
+
+                So whenever your mind tries to convince you otherwise,
+                come back here and remember this little sentence:
+
+                <br><br>
+
+                <b>
+                You are allowed to be exactly where you are while
+                still being deeply cared for. ♡
+                </b>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="note-card"
+             onclick="toggleNote(this)">
+
+            <div class="note-head">
+
+                <h3>
+                    Open when you feel like nobody understands 🥺
+                </h3>
+
+                <span class="note-open">
+                    tap to open
+                </span>
+
+            </div>
+
+
+            <div class="note-body">
+
+                Sometimes the hardest part isn't even the problem itself.
+                Sometimes it's feeling like you can't properly explain
+                what's happening inside your head.
+
+                <br><br>
+
+                And if you've ever felt like that, I hope you remember
+                that you don't have to find perfect words before your
+                feelings become valid.
+
+                <br><br>
+
+                You can say “I don't know.”
+                You can say “I'm tired.”
+                You can say “I just don't feel right today.”
+
+                <br><br>
+
+                You don't always need a perfect explanation.
+
+                <br><br>
+
+                Give yourself patience on the days when you can't
+                explain yourself properly. Sometimes understanding
+                starts with simply giving yourself permission to feel.
+
+            </div>
+
+        </div>
+
+
+
+        <div class="note-card"
+             onclick="toggleNote(this)">
+
+            <div class="note-head">
+
+                <h3>
+                    Open when you're proud of yourself ✨
+                </h3>
+
+                <span class="note-open">
+                    tap to open
+                </span>
+
+            </div>
+
+
+            <div class="note-body">
+
+                And this one is important.
+
+                <br><br>
+
+                If you did something today that you're proud of,
+                even if it seems tiny, don't immediately brush it off.
+
+                <br><br>
+
+                You did it.
+
+                <br><br>
+
+                You kept going.
+                You tried.
+                You handled something difficult.
+                You made an effort.
+
+                <br><br>
+
+                Sometimes we notice everything we could have done
+                better and completely forget to notice what we actually
+                managed to do.
+
+                <br><br>
+
+                So pause for a second and give yourself credit.
+
+                <br><br>
+
+                Fluffy Bear is proud of you too. 🧸⭐
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     GIFTS
+===================================================== -->
+
+<section>
+
+    <h2 class="section-title">
+        Six tiny gifts 🎁
+    </h2>
+
+    <p class="section-sub">
+        Pick one. Then another. Then pretend you weren't going
+        to click all of them anyway.
+    </p>
+
+
+    <div class="gift-grid">
+
+        <div class="gift"
+             onclick="gift('hug')">
+
+            <div class="gift-icon">🫂</div>
+            <span>Warm hug</span>
+
+        </div>
+
+
+        <div class="gift"
+             onclick="gift('flower')">
+
+            <div class="gift-icon">🌷</div>
+            <span>Little flower</span>
+
+        </div>
+
+
+        <div class="gift"
+             onclick="gift('star')">
+
+            <div class="gift-icon">⭐</div>
+            <span>A star</span>
+
+        </div>
+
+
+        <div class="gift"
+             onclick="gift('bear')">
+
+            <div class="gift-icon">🧸</div>
+            <span>Bear wisdom</span>
+
+        </div>
+
+
+        <div class="gift"
+             onclick="gift('secret')">
+
+            <div class="gift-icon">🎀</div>
+            <span>Secret</span>
+
+        </div>
+
+
+        <div class="gift"
+             onclick="gift('silly')">
+
+            <div class="gift-icon">😂</div>
+            <span>Something silly</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FLOWER GARDEN
+===================================================== -->
+
+<section>
+
+    <h2 class="section-title">
+        A little garden for Anu 🌷
+    </h2>
+
+    <p class="section-sub">
+        Every flower has a tiny message hidden inside.
+    </p>
+
+
+    <div class="garden">
+
+        <div class="garden-star"
+             style="left:12%;top:15%">
+             ✦
+        </div>
+
+        <div class="garden-star"
+             style="left:83%;top:17%">
+             ✦
+        </div>
+
+        <div class="garden-star"
+             style="left:51%;top:10%">
+             ✧
+        </div>
+
+
+        <div class="flower"
+             onclick="flower(1)">
+            🌷
+        </div>
+
+        <div class="flower"
+             onclick="flower(2)">
+            🌸
+        </div>
+
+        <div class="flower"
+             onclick="flower(3)">
+            🌷
+        </div>
+
+        <div class="flower"
+             onclick="flower(4)">
+            🌸
+        </div>
+
+        <div class="flower"
+             onclick="flower(5)">
+            🌷
+        </div>
+
+        <div class="flower"
+             onclick="flower(6)">
+            🌸
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONSTELLATION
+===================================================== -->
+
+<section>
+
+    <h2 class="section-title">
+        Make your own little constellation ✨
+    </h2>
+
+    <p class="section-sub">
+        Find all eight stars. Something is waiting at the end.
+    </p>
+
+
+    <div class="constellation"
+         id="constellation">
+
+        <div class="constellation-star"
+             style="left:15%;top:30%"
+             onclick="connectStar(this)">
+        </div>
+
+        <div class="constellation-star"
+             style="left:29%;top:20%"
+             onclick="connectStar(this)">
+        </div>
+
+        <div class="constellation-star"
+             style="left:45%;top:34%"
+             onclick="connectStar(this)">
+        </div>
+
+        <div class="constellation-star"
+             style="left:62%;top:22%"
+             onclick="connectStar(this)">
+        </div>
+
+        <div class="constellation-star"
+             style="left:79%;top:38%"
+             onclick="connectStar(this)">
+        </div>
+
+        <div class="constellation-star"
+             style="left:69%;top:68%"
+             onclick="connectStar(this)">
+        </div>
+
+        <div class="constellation-star"
+             style="left:44%;top:72%"
+             onclick="connectStar(this)">
+        </div>
+
+        <div class="constellation-star"
+             style="left:24%;top:62%"
+             onclick="connectStar(this)">
+        </div>
+
+    </div>
+
+
+    <p id="constellationStatus"
+       style="
+       margin-top:25px;
+       color:#eeb7c8;
+       ">
+
+       0 / 8 stars found ✦
+
+    </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     DOODLE DEPARTMENT
+===================================================== -->
+
+<section id="fun">
+
+    <h2 class="section-title">
+        The Fluffy Bear Department 🧸
+    </h2>
+
+    <p class="section-sub">
+        A highly professional meeting about Anu's mood.
+    </p>
+
+
+    <div class="comedy-box">
+
+        <div class="comedy-bear"
+             id="comedyBear">
+
+            🧸
+
+        </div>
+
+
+        <div class="comedy-text"
+             id="comedyText">
+
+            🧸 <b>Fluffy Bear:</b>
+            “I have an important announcement.”
+
+            <br><br>
+
+            🌷 <b>Flower:</b>
+            “What is it?”
+
+            <br><br>
+
+            🧸 <b>Fluffy Bear:</b>
+            “I forgot.”
+
+        </div>
+
+
+        <button
+            class="primary-btn"
+            onclick="nextComedy()">
+
+            Continue meeting 😂
+
         </button>
 
     </div>
@@ -854,258 +2642,982 @@ footer{
 </section>
 
 
-<!-- CONSTELLATION -->
+
+<!-- =====================================================
+     HUG MACHINE
+===================================================== -->
+
 <section>
 
-    <h2 class="section-title">Make a little constellation ✨</h2>
+    <h2 class="section-title">
+        Emergency Hug Machine 🫂
+    </h2>
 
     <p class="section-sub">
-        Click the stars one by one and see what the galaxy makes for you.
+        Use responsibly. Fluffy Bear takes hugs very seriously.
     </p>
 
-    <div class="constellation" id="constellation">
 
-        <div class="constellation-star" style="left:18%;top:30%" onclick="starClicked(this)"></div>
-        <div class="constellation-star" style="left:35%;top:20%" onclick="starClicked(this)"></div>
-        <div class="constellation-star" style="left:50%;top:37%" onclick="starClicked(this)"></div>
-        <div class="constellation-star" style="left:67%;top:22%" onclick="starClicked(this)"></div>
-        <div class="constellation-star" style="left:78%;top:42%" onclick="starClicked(this)"></div>
-        <div class="constellation-star" style="left:60%;top:68%" onclick="starClicked(this)"></div>
-        <div class="constellation-star" style="left:38%;top:70%" onclick="starClicked(this)"></div>
-        <div class="constellation-star" style="left:22%;top:57%" onclick="starClicked(this)"></div>
+    <div class="hug-machine">
+
+        <div class="hug-heart">
+            🫂
+        </div>
+
+        <div class="hug-text"
+             id="hugText">
+
+            Press the button for a hug.
+
+        </div>
+
+
+        <button
+            class="primary-btn"
+            onclick="hug()">
+
+            SEND ME A HUG 🧸
+
+        </button>
 
     </div>
-
-    <p id="constellationText" style="margin-top:25px;color:#efbdce;"></p>
 
 </section>
 
 
-<!-- FINAL -->
+
+<!-- =====================================================
+     SHOOTING STAR WISH
+===================================================== -->
+
 <section>
 
-    <div class="doodle">🧸🌙</div>
+    <h2 class="section-title">
+        One little wish 🌠
+    </h2>
 
-    <h2 class="section-title">One last little note ♡</h2>
+    <p class="section-sub">
+        Click the star and make a tiny wish.
+    </p>
 
-    <div class="card">
 
-        <p style="line-height:2;font-size:17px;color:#f8dce5;">
+    <div class="wish-area">
+
+        <div class="wish-star"
+             onclick="makeWish()">
+
+            ⭐
+
+        </div>
+
+
+        <div class="wish-result"
+             id="wishResult">
+
+            The galaxy heard you. 🌙
+
+            <br><br>
+
+            Whatever your wish is,
+            I hope life gives you little reasons to smile
+            along the way.
+
+            <br><br>
+
+            And yes...
+
+            <br><br>
+
+            Fluffy Bear is personally supervising the stars tonight. 🧸✨
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FINAL
+===================================================== -->
+
+<section class="final" id="final">
+
+    <div class="final-card">
+
+        <div class="final-bear">
+            🧸
+        </div>
+
+
+        <h2>
+            Before you leave... ♡
+        </h2>
+
+
+        <p>
 
             Hey Anu,
+
             <br><br>
 
-            I don't know exactly what kind of day you're having every time
-            you open this little galaxy, but I hope this tiny place gives
-            you a few peaceful minutes whenever you need them.
+            I made this little galaxy because sometimes you don't
+            need a huge solution to a difficult day. Sometimes you
+            just need somewhere soft to sit for a while, something
+            silly to make you smile, or a few words reminding you
+            that you're cared for.
+
             <br><br>
 
-            You don't have to be happy all the time, and you definitely
-            don't have to hide when you're having an off day. Take your
-            time, breathe, rest, laugh at something stupid, and let yourself
-            be exactly where you are.
+            So whenever you find yourself having one of those days,
+            you can come back here.
+
             <br><br>
 
-            And whenever everything feels a little too loud, just remember
-            that somewhere inside this ridiculous little galaxy there is
-            one fluffy white bear whose entire job is apparently to remind
-            you that you're cared for. 🧸🤍
+            Click the stars.
+            Annoy the fluffy bear.
+            Open random flowers.
+            Read one of the letters.
+            Press buttons you probably shouldn't press.
+
             <br><br>
 
-            So yeah...
-            this is your little corner of the universe.
-            Come back whenever you want. 🌙✨
+            You don't have to finish everything.
+
+            <br><br>
+
+            Just take whatever little piece of comfort you need
+            and keep it with you.
+
+            <br><br>
+
+            And if today wasn't your day...
+
+            tomorrow gets another chance. 🌙
+
+            <br><br>
+
+            Until then, take care of yourself,
+            be gentle with yourself,
+            and don't forget that you deserve peaceful,
+            happy little moments too.
 
         </p>
 
+
+        <div class="final-sign">
+
+            Your little galaxy will always have
+            one fluffy bear waiting. 🧸🤍
+
+        </div>
+
     </div>
 
 </section>
+
 
 
 <footer>
-    made with a little bit of chaos, stars & one extremely fluffy bear 🧸♡
+
+    made with stars, softness & an unnecessarily fluffy bear 🧸🌙
+
+    <br>
+
+    ♡ for Anu ♡
+
 </footer>
 
 
+
+<!-- SECRET BUTTON -->
+
+<button
+    class="secret-button"
+    onclick="secret()">
+
+    🎀
+
+</button>
+
+
+
 <!-- MODAL -->
-<div class="modal" id="modal">
+
+<div class="modal"
+     id="modal">
 
     <div class="modal-card">
 
-        <h2 id="modalTitle"></h2>
+        <div class="modal-icon"
+             id="modalIcon">
+            🧸
+        </div>
 
-        <p id="modalText"></p>
+        <h2 id="modalTitle">
+            Hello
+        </h2>
 
-        <button class="close" onclick="closeModal()">
+        <p id="modalText">
+            Something cute.
+        </p>
+
+        <button
+            class="close"
+            onclick="closeModal()">
+
             okayyy ♡
+
         </button>
 
     </div>
 
 </div>
+
 
 
 <script>
 
-/* MOOD */
-function showNote(id){
+/* =========================================================
+   NAV
+========================================================= */
 
-    document.querySelectorAll(".note").forEach(note=>{
-        note.classList.remove("show");
+function go(id){
+
+    document.getElementById(id).scrollIntoView({
+        behavior:"smooth"
     });
 
-    document.getElementById(id).classList.add("show");
-
-    setTimeout(()=>{
-        document.getElementById(id).scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-    },100);
 }
 
 
-/* GIFTS */
-function openGift(type){
+/* =========================================================
+   STARS
+========================================================= */
 
-    let title="";
-    let text="";
+const starContainer =
+    document.getElementById("stars");
+
+for(let i=0;i<85;i++){
+
+    const star =
+        document.createElement("div");
+
+    star.className =
+        "star";
+
+    if(Math.random()>.82){
+        star.classList.add("big");
+    }
+
+    star.style.left =
+        Math.random()*100+"%";
+
+    star.style.top =
+        Math.random()*100+"%";
+
+    star.style.animationDelay =
+        Math.random()*4+"s";
+
+    starContainer.appendChild(star);
+
+}
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+function createParticle(){
+
+    const p =
+        document.createElement("div");
+
+    p.className =
+        "particle";
+
+    const symbols =
+        ["♡","✦","✧","·","˚"];
+
+    p.innerText =
+        symbols[
+            Math.floor(
+                Math.random()*symbols.length
+            )
+        ];
+
+    p.style.left =
+        Math.random()*100+"%";
+
+    p.style.bottom =
+        "-20px";
+
+    p.style.fontSize =
+        (10+Math.random()*13)+"px";
+
+    p.style.animationDuration =
+        (10+Math.random()*12)+"s";
+
+    document
+        .getElementById("particles")
+        .appendChild(p);
+
+    setTimeout(()=>{
+        p.remove();
+    },23000);
+
+}
+
+setInterval(createParticle,1200);
+
+
+/* =========================================================
+   SHOOTING STARS
+========================================================= */
+
+setInterval(()=>{
+
+    const s =
+        document.getElementById("shootingStar");
+
+    s.classList.remove("go");
+
+    void s.offsetWidth;
+
+    s.classList.add("go");
+
+},8500);
+
+
+/* =========================================================
+   MOOD
+========================================================= */
+
+function mood(type){
+
+    document
+        .querySelectorAll(".response-inner")
+        .forEach(x=>{
+            x.classList.remove("show");
+        });
+
+    const selected =
+        document.getElementById(type);
+
+    selected.classList.add("show");
+
+    selected.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+
+/* =========================================================
+   NEEDS
+========================================================= */
+
+function need(type){
 
     if(type==="hug"){
-        title="A very important delivery 🫂";
-        text="Your fluffy bear has delivered one oversized, soft, warm virtual hug. Please accept it immediately. No returns. No exchanges.";
+
+        openModal(
+            "🫂",
+            "Hug delivery!",
+            "A very soft virtual hug has been delivered. Fluffy Bear has been instructed not to let go for approximately 47 business days."
+        );
+
     }
 
-    if(type==="flower"){
-        title="A tiny flower for you 🌷";
-        text="This flower has absolutely no practical purpose. It simply looked pretty and decided that it belonged to you.";
+
+    if(type==="smile"){
+
+        openModal(
+            "😂",
+            "Emergency silliness",
+            "Why did the fluffy bear sit on the moon? Because he wanted a little more space. He has been laughing at his own joke for six minutes."
+        );
+
     }
 
-    if(type==="bear"){
-        title="Bear wisdom 🧸";
-        text="Fluffy Bear says: “You don't have to have everything figured out today. Also, blankets are scientifically excellent.” He refuses to elaborate.";
+
+    if(type==="love"){
+
+        openModal(
+            "💗",
+            "A tiny reminder",
+            "You don't have to accomplish something huge to deserve kindness. You are allowed to simply exist, breathe, rest, and have a peaceful moment."
+        );
+
     }
 
-    if(type==="star"){
-        title="One little star ⭐";
-        text="This star has been assigned one job: stay here and make this little corner feel a little brighter whenever you visit.";
+
+    if(type==="distract"){
+
+        go("fun");
+
     }
 
-    if(type==="secret"){
-        title="SECRET MESSAGE 🎀";
-        text="Psst... you found one of the hidden things. Fluffy Bear is extremely impressed. He has awarded you 47 imaginary points.";
+
+    if(type==="rest"){
+
+        openModal(
+            "🌙",
+            "Quiet mode",
+            "No pressure. No solving everything. Just take a slow breath and let yourself have a few quiet minutes."
+        );
+
     }
 
-    if(type==="silly"){
-        title="Important announcement 😂";
-        text="Breaking news: fluffy bear has forgotten why he walked into the room. Scientists are concerned. He says he will try again tomorrow.";
+
+    if(type==="surprise"){
+
+        const surprises=[
+            "Fluffy Bear says you're doing better than you think. 🧸",
+            "A random star has been assigned to protect your mood tonight. ⭐",
+            "You have officially been awarded one imaginary cookie. 🍪",
+            "The moon would like you to know that you're doing okay. 🌙",
+            "Flower Department confirms: you deserve a peaceful evening. 🌷"
+        ];
+
+        openModal(
+            "🎁",
+            "Surprise!",
+            surprises[
+                Math.floor(
+                    Math.random()*surprises.length
+                )
+            ]
+        );
+
     }
 
-    document.getElementById("modalTitle").innerText=title;
-    document.getElementById("modalText").innerText=text;
-    document.getElementById("modal").classList.add("show");
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+function toggleNote(card){
+
+    card.classList.toggle("open");
+
+}
+
+
+/* =========================================================
+   GIFTS
+========================================================= */
+
+function gift(type){
+
+    const data={
+
+        hug:[
+            "🫂",
+            "A proper fluffy hug",
+            "This is the kind of hug where you don't have to say anything. Just stay there for a while."
+        ],
+
+        flower:[
+            "🌷",
+            "A little flower",
+            "No reason. No occasion. It just looked like something you should have."
+        ],
+
+        star:[
+            "⭐",
+            "One tiny star",
+            "This little star has been placed here specifically to make the galaxy feel a little warmer whenever you visit."
+        ],
+
+        bear:[
+            "🧸",
+            "Bear wisdom",
+            "Fluffy Bear says: rest when you're tired, breathe when your mind is loud, and never trust a suspiciously delicious-looking cookie."
+        ],
+
+        secret:[
+            "🎀",
+            "A secret",
+            "You found a hidden gift. Fluffy Bear is impressed. He would like you to know that you are officially very good at clicking things."
+        ],
+
+        silly:[
+            "😂",
+            "Important news",
+            "Fluffy Bear has discovered that he can fit exactly zero thoughts inside his head before breakfast."
+        ]
+
+    };
+
+    openModal(
+        data[type][0],
+        data[type][1],
+        data[type][2]
+    );
+
+}
+
+
+/* =========================================================
+   FLOWERS
+========================================================= */
+
+function flower(number){
+
+    const messages=[
+
+        "You deserve little things that make you smile. 🌷",
+
+        "Even quiet days can contain something beautiful. 🌸",
+
+        "Take a breath. You don't need to rush this moment. 🌷",
+
+        "Somewhere between all the noise, there is still softness. 🌸",
+
+        "Fluffy Bear picked this flower especially for you. 🧸",
+
+        "One tiny reminder: be a little kinder to yourself today. 🤍"
+
+    ];
+
+    openModal(
+        "🌷",
+        "A flower for Anu",
+        messages[number-1] || messages[0]
+    );
+
+}
+
+
+/* =========================================================
+   CONSTELLATION
+========================================================= */
+
+let constellationCount=0;
+
+let previousStar=null;
+
+function connectStar(star){
+
+    if(star.dataset.done==="yes"){
+        return;
+    }
+
+    star.dataset.done="yes";
+
+    star.style.transform="scale(1.7)";
+
+    constellationCount++;
+
+    if(previousStar){
+
+        const line =
+            document.createElement("div");
+
+        line.className =
+            "constellation-line";
+
+        const rect =
+            document
+                .getElementById("constellation")
+                .getBoundingClientRect();
+
+        const r1 =
+            previousStar.getBoundingClientRect();
+
+        const r2 =
+            star.getBoundingClientRect();
+
+        const x1 =
+            r1.left -
+            rect.left +
+            r1.width/2;
+
+        const y1 =
+            r1.top -
+            rect.top +
+            r1.height/2;
+
+        const x2 =
+            r2.left -
+            rect.left +
+            r2.width/2;
+
+        const y2 =
+            r2.top -
+            rect.top +
+            r2.height/2;
+
+        const dx=x2-x1;
+        const dy=y2-y1;
+
+        const distance =
+            Math.sqrt(dx*dx+dy*dy);
+
+        const angle =
+            Math.atan2(dy,dx)
+            *180/Math.PI;
+
+        line.style.width =
+            distance+"px";
+
+        line.style.left =
+            x1+"px";
+
+        line.style.top =
+            y1+"px";
+
+        line.style.transform =
+            `rotate(${angle}deg)`;
+
+        line.style.display =
+            "block";
+
+        document
+            .getElementById("constellation")
+            .appendChild(line);
+
+    }
+
+    previousStar=star;
+
+    document
+        .getElementById("constellationStatus")
+        .innerText =
+        constellationCount+
+        " / 8 stars found ✦";
+
+    if(constellationCount===8){
+
+        openModal(
+            "✨",
+            "You made it!",
+            "You connected the whole little constellation. The galaxy officially belongs to you now. Fluffy Bear is extremely proud."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   COMEDY
+========================================================= */
+
+let comedyStep=0;
+
+const comedy=[
+    `
+    🧸 <b>Fluffy Bear:</b>
+    “Okay. New plan.”
+
+    <br><br>
+
+    🌷 <b>Flower:</b>
+    “What's the plan?”
+
+    <br><br>
+
+    🧸 <b>Fluffy Bear:</b>
+    “Make Anu smile.”
+    `,
+
+    `
+    🧸 <b>Fluffy Bear:</b>
+    “Step one: flower.”
+
+    <br><br>
+
+    🌷 <b>Flower:</b>
+    “I am literally the flower.”
+
+    <br><br>
+
+    🧸 <b>Fluffy Bear:</b>
+    “Excellent teamwork.”
+    `,
+
+    `
+    ⭐ <b>Star:</b>
+    “Maybe she needs a joke.”
+
+    <br><br>
+
+    🧸 <b>Fluffy Bear:</b>
+    “I have one.”
+
+    <br><br>
+
+    ⭐ <b>Star:</b>
+    “Okay.”
+
+    <br><br>
+
+    🧸 <b>Fluffy Bear:</b>
+    “I forgot it.”
+    `,
+
+    `
+    🌷 <b>Flower:</b>
+    “Any final ideas?”
+
+    <br><br>
+
+    🧸 <b>Fluffy Bear:</b>
+    “Snacks.”
+
+    <br><br>
+
+    ⭐ <b>Star:</b>
+    “Finally. A professional.”
+    `,
+
+    `
+    🧸 <b>Fluffy Bear:</b>
+    “Final decision.”
+
+    <br><br>
+
+    Everyone:
+
+    <br><br>
+
+    “ANU DESERVES A GOOD DAY. ♡”
+
+    <br><br>
+
+    🧸 <b>Meeting dismissed.</b>
+    `
+];
+
+function nextComedy(){
+
+    comedyStep++;
+
+    if(comedyStep>=comedy.length){
+        comedyStep=0;
+    }
+
+    document
+        .getElementById("comedyText")
+        .innerHTML =
+        comedy[comedyStep];
+
+}
+
+
+/* =========================================================
+   HUG
+========================================================= */
+
+let hugCount=0;
+
+function hug(){
+
+    hugCount++;
+
+    const texts=[
+
+        "Hug delivered. 🫂",
+
+        "Okay, that was an extra-soft one. 🧸",
+
+        "Fluffy Bear is not letting go yet. 😭",
+
+        "One more because apparently one wasn't enough. 🤍",
+
+        "Okay okay... final hug. Probably. 🫂"
+
+    ];
+
+    document
+        .getElementById("hugText")
+        .innerText =
+        texts[
+            Math.min(
+                hugCount-1,
+                texts.length-1
+            )
+        ];
+
+    makeHearts();
+
+}
+
+
+/* =========================================================
+   WISH
+========================================================= */
+
+function makeWish(){
+
+    document
+        .getElementById("wishResult")
+        .classList.add("show");
+
+    makeHearts();
+
+}
+
+
+/* =========================================================
+   HEARTS
+========================================================= */
+
+function makeHearts(){
+
+    for(let i=0;i<18;i++){
+
+        const heart =
+            document.createElement("div");
+
+        heart.innerHTML =
+            ["♡","♥","✦","🌷"][Math.floor(Math.random()*4)];
+
+        heart.style.position="fixed";
+        heart.style.left=
+            (20+Math.random()*60)+"%";
+
+        heart.style.top=
+            (35+Math.random()*30)+"%";
+
+        heart.style.zIndex="50";
+        heart.style.pointerEvents="none";
+
+        heart.style.fontSize=
+            (15+Math.random()*22)+"px";
+
+        heart.style.color="#f5a9c0";
+
+        heart.animate(
+
+            [
+                {
+                    transform:"translateY(0) scale(.5)",
+                    opacity:0
+                },
+
+                {
+                    transform:
+                        "translateY(-100px) scale(1.2)",
+                    opacity:1
+                },
+
+                {
+                    transform:
+                        "translateY(-250px) scale(.6)",
+                    opacity:0
+                }
+            ],
+
+            {
+                duration:
+                    1300+Math.random()*1000,
+
+                easing:"ease-out"
+            }
+
+        );
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+            heart.remove();
+        },2500);
+
+    }
+
+}
+
+
+/* =========================================================
+   SECRET
+========================================================= */
+
+function secret(){
+
+    openModal(
+        "🎀",
+        "You found the secret button!",
+        "There wasn't actually a secret reason for this button. I just wanted there to be one more tiny thing for you to discover. 🧸♡"
+    );
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openModal(icon,title,text){
+
+    document
+        .getElementById("modalIcon")
+        .innerText=icon;
+
+    document
+        .getElementById("modalTitle")
+        .innerText=title;
+
+    document
+        .getElementById("modalText")
+        .innerText=text;
+
+    document
+        .getElementById("modal")
+        .classList.add("show");
+
 }
 
 function closeModal(){
-    document.getElementById("modal").classList.remove("show");
+
+    document
+        .getElementById("modal")
+        .classList.remove("show");
+
 }
 
+document
+    .getElementById("modal")
+    .addEventListener(
+        "click",
+        function(e){
 
-/* DOODLE MEETING */
-let meetingStep=0;
+            if(e.target===this){
+                closeModal();
+            }
 
-function meeting(){
-
-    const box=document.getElementById("meeting");
-
-    meetingStep++;
-
-    if(meetingStep===1){
-        box.innerHTML=`
-        🧸 <b>Fluffy Bear:</b> “Okay. New plan.”
-        <br><br>
-        🌷 <b>Flower:</b> “What's the plan?”
-        <br><br>
-        🧸 <b>Fluffy Bear:</b> “Make Anu smile.”
-        <br><br>
-        ⭐ <b>Star:</b> “How?”
-        `;
-    }
-
-    else if(meetingStep===2){
-        box.innerHTML=`
-        🧸 <b>Fluffy Bear:</b> “Easy.”
-        <br><br>
-        🧸 <b>Fluffy Bear:</b> “We give her a flower.”
-        <br><br>
-        🌷 <b>Flower:</b> “I am literally the flower.”
-        <br><br>
-        🧸 <b>Fluffy Bear:</b> “Exactly. Excellent teamwork.”
-        `;
-    }
-
-    else{
-        box.innerHTML=`
-        🧸 <b>Fluffy Bear:</b> “Final decision.”
-        <br><br>
-        ⭐ <b>Star:</b> “What is it?”
-        <br><br>
-        🧸 <b>Fluffy Bear:</b> “Anu deserves a good day.”
-        <br><br>
-        🌷 <b>Flower:</b> “Meeting dismissed.”
-        <br><br>
-        ✨ <b>Everyone:</b> “GOOD LUCK ANUUU ♡”
-        `;
-    }
-}
+        }
+    );
 
 
-/* CONSTELLATION */
-let starsClicked=0;
+/* =========================================================
+   BEAR BLANKET SECRET
+========================================================= */
 
-function starClicked(star){
+document
+    .getElementById("mainBear")
+    .addEventListener(
+        "dblclick",
+        function(){
 
-    if(star.dataset.clicked==="yes") return;
+            this.classList.toggle("blanket");
 
-    star.dataset.clicked="yes";
-    star.style.transform="scale(1.7)";
-    star.style.boxShadow="0 0 30px #fff";
+            openModal(
+                "🧸",
+                "Fluffy Bear mode",
+                this.classList.contains("blanket")
+                ? "He got his blanket. He is now completely unavailable for serious conversations."
+                : "Bear is out of blanket mode."
+            );
 
-    starsClicked++;
-
-    if(starsClicked===8){
-
-        document.getElementById("constellationText").innerHTML=
-        "✨ You made it! The galaxy officially belongs to you now. 🧸♡";
-
-    }else{
-
-        document.getElementById("constellationText").innerHTML=
-        `${starsClicked} / 8 stars found ✨`;
-
-    }
-}
-
-
-/* RANDOM LITTLE HEARTS */
-setInterval(()=>{
-
-    const heart=document.createElement("div");
-
-    heart.className="float";
-    heart.innerHTML=["♡","✦","˚","♥"][Math.floor(Math.random()*4)];
-
-    heart.style.left=Math.random()*100+"%";
-    heart.style.animationDuration=(10+Math.random()*10)+"s";
-
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{
-        heart.remove();
-    },20000);
-
-},2200);
+        }
+    );
 
 </script>
 
