@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Anu's Little Galaxy ♡</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    color:#fff4f7;
+    font-family:"Trebuchet MS",sans-serif;
+    overflow-x:hidden;
+    background:
+        linear-gradient(rgba(28,8,25,.35),rgba(20,5,18,.5)),
+        url("background.jpg") center/cover fixed;
+}
+
+/* DARK GLASS */
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(35,8,29,.22);
+    pointer-events:none;
+    z-index:-1;
+}
+
+/* STARS */
+.star{
+    position:fixed;
+    width:3px;
+    height:3px;
+    background:#ffe7ef;
+    border-radius:50%;
+    box-shadow:0 0 12px #ffd4e5;
+    animation:twinkle 2s infinite alternate;
+    z-index:0;
+}
+
+@keyframes twinkle{
+    from{opacity:.2;transform:scale(.7)}
+    to{opacity:1;transform:scale(1.5)}
+}
+
+/* FLOATING HEARTS */
+.float{
+    position:fixed;
+    bottom:-30px;
+    color:#f5a9c2;
+    font-size:20px;
+    opacity:.5;
+    animation:floatUp linear infinite;
+    z-index:0;
+}
+
+@keyframes floatUp{
+    0%{
+        transform:translateY(0) rotate(0deg);
+        opacity:0;
+    }
+    15%{opacity:.7}
+    100%{
+        transform:translateY(-110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* HERO */
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px 20px;
+    position:relative;
+}
+
+.moon{
+    width:115px;
+    height:115px;
+    border-radius:50%;
+    background:#ffe4ec;
+    box-shadow:
+        0 0 25px #ffd3e2,
+        0 0 70px rgba(255,180,205,.35);
+    position:absolute;
+    top:9%;
+    right:13%;
+    opacity:.9;
+}
+
+.moon:after{
+    content:"";
+    position:absolute;
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    background:#351027;
+    left:27px;
+    top:-8px;
+}
+
+.hero h1{
+    font-family:Georgia,serif;
+    font-size:clamp(45px,8vw,85px);
+    font-weight:400;
+    letter-spacing:2px;
+    text-shadow:0 0 25px rgba(255,190,215,.6);
+    animation:fadeDown 1.5s ease;
+}
+
+.hero p{
+    max-width:650px;
+    margin-top:18px;
+    font-size:18px;
+    line-height:1.8;
+    color:#f8ccd9;
+    animation:fadeUp 1.5s ease;
+}
+
+.enter{
+    margin-top:30px;
+    padding:15px 28px;
+    border:1px solid rgba(255,210,225,.5);
+    border-radius:50px;
+    background:rgba(255,220,235,.12);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    backdrop-filter:blur(8px);
+    transition:.3s;
+}
+
+.enter:hover{
+    transform:translateY(-4px) scale(1.04);
+    background:rgba(255,210,230,.2);
+    box-shadow:0 0 25px rgba(255,170,200,.3);
+}
+
+@keyframes fadeDown{
+    from{opacity:0;transform:translateY(-30px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+/* BEAR */
+.bear-area{
+    margin-top:55px;
+    position:relative;
+    width:230px;
+    height:250px;
+    animation:breathe 3s ease-in-out infinite;
+}
+
+@keyframes breathe{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-8px)}
+}
+
+.bear{
+    position:absolute;
+    width:155px;
+    height:150px;
+    left:38px;
+    bottom:15px;
+    background:#fffaf8;
+    border-radius:48% 48% 43% 43%;
+    box-shadow:
+        inset -12px -8px 0 #f3e4e5,
+        0 15px 35px rgba(0,0,0,.25);
+}
+
+/* ears */
+.ear{
+    position:absolute;
+    width:55px;
+    height:55px;
+    background:#fffaf8;
+    border-radius:50%;
+    top:-27px;
+    box-shadow:inset -6px -5px 0 #f1dfe1;
+}
+
+.ear.left{left:5px}
+.ear.right{right:5px}
+
+.ear:after{
+    content:"";
+    position:absolute;
+    inset:12px;
+    border-radius:50%;
+    background:#f4cbd4;
+}
+
+/* face */
+.eye{
+    position:absolute;
+    width:9px;
+    height:12px;
+    background:#3a2430;
+    border-radius:50%;
+    top:58px;
+}
+
+.eye.left{left:48px}
+.eye.right{right:48px}
+
+.nose{
+    position:absolute;
+    width:13px;
+    height:9px;
+    background:#6c3a4d;
+    border-radius:50%;
+    left:71px;
+    top:75px;
+}
+
+.mouth{
+    position:absolute;
+    width:20px;
+    height:10px;
+    border-bottom:2px solid #6c3a4d;
+    border-radius:50%;
+    left:67px;
+    top:81px;
+}
+
+.blush{
+    position:absolute;
+    width:25px;
+    height:12px;
+    background:#f5c3cf;
+    border-radius:50%;
+    opacity:.65;
+    top:76px;
+}
+
+.blush.left{left:22px}
+.blush.right{right:22px}
+
+/* paws */
+.paw{
+    position:absolute;
+    width:45px;
+    height:65px;
+    background:#fffaf8;
+    border-radius:50%;
+    bottom:5px;
+    box-shadow:inset -5px -4px 0 #f1e1e2;
+}
+
+.paw.left{
+    left:-17px;
+    transform:rotate(25deg);
+}
+
+.paw.right{
+    right:-17px;
+    transform:rotate(-25deg);
+}
+
+/* tiny heart */
+.bear-heart{
+    position:absolute;
+    font-size:37px;
+    left:58px;
+    bottom:13px;
+    animation:heartBeat 1.4s infinite;
+}
+
+@keyframes heartBeat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.15)}
+}
+
+.bear-name{
+    position:absolute;
+    bottom:-15px;
+    width:100%;
+    text-align:center;
+    font-size:16px;
+    color:#f7c6d5;
+}
+
+/* SECTIONS */
+section{
+    min-height:80vh;
+    padding:90px 20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    position:relative;
+}
+
+.section-title{
+    font-family:Georgia,serif;
+    font-size:42px;
+    font-weight:400;
+    margin-bottom:15px;
+}
+
+.section-sub{
+    color:#eab8c8;
+    max-width:600px;
+    line-height:1.7;
+    margin-bottom:35px;
+}
+
+/* GLASS CARD */
+.card{
+    width:min(720px,94%);
+    padding:35px;
+    border-radius:28px;
+    background:rgba(35,10,30,.52);
+    border:1px solid rgba(255,210,225,.2);
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+    backdrop-filter:blur(12px);
+}
+
+/* MOOD BUTTONS */
+.moods{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:14px;
+    max-width:700px;
+}
+
+.mood{
+    padding:15px 21px;
+    border-radius:40px;
+    border:1px solid rgba(255,210,225,.3);
+    background:rgba(255,210,225,.08);
+    color:#ffeaf0;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.mood:hover{
+    transform:translateY(-5px) rotate(-1deg);
+    background:rgba(255,190,215,.17);
+}
+
+/* NOTE */
+.note{
+    margin-top:35px;
+    display:none;
+    text-align:left;
+    line-height:1.9;
+    color:#f9dce5;
+    font-size:16px;
+}
+
+.note.show{
+    display:block;
+    animation:noteIn .6s ease;
+}
+
+.note h3{
+    color:#ffc7d8;
+    font-family:Georgia,serif;
+    font-size:25px;
+    margin-bottom:18px;
+}
+
+@keyframes noteIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* LITTLE GIFTS */
+.gifts{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+    gap:18px;
+    width:min(750px,95%);
+}
+
+.gift{
+    min-height:125px;
+    border-radius:22px;
+    background:rgba(255,220,235,.09);
+    border:1px solid rgba(255,220,235,.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:8px;
+    cursor:pointer;
+    transition:.35s;
+    font-size:16px;
+}
+
+.gift span{
+    font-size:38px;
+}
+
+.gift:hover{
+    transform:translateY(-7px) rotate(1deg);
+    background:rgba(255,210,230,.16);
+}
+
+/* STAR CONSTELLATION */
+.constellation{
+    position:relative;
+    width:min(700px,95%);
+    height:330px;
+    border-radius:30px;
+    background:rgba(20,5,20,.4);
+    border:1px solid rgba(255,220,235,.15);
+    overflow:hidden;
+}
+
+.constellation-star{
+    position:absolute;
+    width:13px;
+    height:13px;
+    background:#ffe6ee;
+    border-radius:50%;
+    box-shadow:0 0 15px #ffc8da;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.constellation-star:hover{
+    transform:scale(1.8);
+}
+
+.line{
+    position:absolute;
+    height:2px;
+    background:rgba(255,190,215,.45);
+    transform-origin:left center;
+    display:none;
+}
+
+/* DOODLE MESSAGE */
+.doodle{
+    font-size:70px;
+    margin-bottom:10px;
+    animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px) rotate(3deg)}
+}
+
+.doodle-box{
+    width:min(650px,95%);
+    padding:35px;
+    border-radius:30px;
+    background:rgba(30,8,25,.55);
+    border:1px solid rgba(255,215,225,.2);
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(15,3,13,.72);
+    backdrop-filter:blur(8px);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:20;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-card{
+    max-width:550px;
+    width:100%;
+    padding:40px;
+    border-radius:30px;
+    background:#321126;
+    border:1px solid rgba(255,205,220,.25);
+    text-align:center;
+    box-shadow:0 25px 80px rgba(0,0,0,.5);
+    animation:modalIn .45s ease;
+}
+
+.modal-card h2{
+    font-family:Georgia,serif;
+    color:#ffc8d8;
+    margin-bottom:20px;
+}
+
+.modal-card p{
+    line-height:1.8;
+    color:#f8dbe4;
+}
+
+.close{
+    margin-top:25px;
+    padding:11px 22px;
+    border-radius:30px;
+    border:1px solid rgba(255,210,225,.25);
+    background:rgba(255,220,235,.1);
+    color:white;
+    cursor:pointer;
+}
+
+@keyframes modalIn{
+    from{opacity:0;transform:scale(.9)}
+    to{opacity:1;transform:scale(1)}
+}
+
+/* FOOTER */
+footer{
+    padding:60px 20px;
+    text-align:center;
+    color:#dcaebe;
+}
+
+@media(max-width:600px){
+    .moon{
+        width:75px;
+        height:75px;
+        right:7%;
+    }
+
+    .moon:after{
+        width:72px;
+        height:72px;
+        left:19px;
+        top:-5px;
+    }
+
+    .section-title{
+        font-size:34px;
+    }
+
+    .card{
+        padding:25px 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<!-- STARS -->
+<div class="star" style="top:8%;left:10%"></div>
+<div class="star" style="top:17%;left:38%"></div>
+<div class="star" style="top:31%;left:82%"></div>
+<div class="star" style="top:46%;left:18%"></div>
+<div class="star" style="top:58%;left:73%"></div>
+<div class="star" style="top:72%;left:42%"></div>
+<div class="star" style="top:84%;left:88%"></div>
+
+<!-- FLOATING HEARTS -->
+<div class="float" style="left:8%;animation-duration:12s">♡</div>
+<div class="float" style="left:24%;animation-duration:16s;animation-delay:3s">♡</div>
+<div class="float" style="left:53%;animation-duration:14s;animation-delay:5s">♡</div>
+<div class="float" style="left:76%;animation-duration:18s;animation-delay:2s">♡</div>
+<div class="float" style="left:91%;animation-duration:13s;animation-delay:7s">♡</div>
+
+<!-- HERO -->
+<div class="hero">
+
+    <div class="moon"></div>
+
+    <div class="bear-area">
+        <div class="bear">
+
+            <div class="ear left"></div>
+            <div class="ear right"></div>
+
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+
+            <div class="blush left"></div>
+            <div class="blush right"></div>
+
+            <div class="nose"></div>
+            <div class="mouth"></div>
+
+            <div class="paw left"></div>
+            <div class="paw right"></div>
+
+            <div class="bear-heart">♡</div>
+        </div>
+
+        <div class="bear-name">your fluffy little guardian 🧸</div>
+    </div>
+
+    <h1>Anu's Little Galaxy ♡</h1>
+
+    <p>
+        Hey Anu... 🌙<br>
+        I made you a tiny little universe to visit whenever
+        you need a smile, a distraction, or just a soft place
+        to breathe for a while.
+    </p>
+
+    <button class="enter" onclick="document.getElementById('mood').scrollIntoView()">
+        Enter my little galaxy ✨
+    </button>
+
+</div>
+
+
+<!-- MOOD -->
+<section id="mood">
+
+    <h2 class="section-title">First... how are you feeling? 🌙</h2>
+
+    <p class="section-sub">
+        Be honest. The fluffy bear promises he won't judge you.
+        He is emotionally incapable of judging anyone.
+    </p>
+
+    <div class="moods">
+
+        <button class="mood" onclick="showNote('bad')">🥺 Not good</button>
+        <button class="mood" onclick="showNote('meh')">😐 Meh</button>
+        <button class="mood" onclick="showNote('tired')">😴 Tired</button>
+        <button class="mood" onclick="showNote('annoyed')">😤 Annoyed</button>
+        <button class="mood" onclick="showNote('verybad')">😭 Very bad</button>
+        <button class="mood" onclick="showNote('okay')">😌 Actually okay</button>
+
+    </div>
+
+    <div class="card">
+
+        <div id="bad" class="note">
+            <h3>Come here for a tiny minute 🫂</h3>
+
+            <p>
+                Hey Anu, if today just isn't feeling right, that's okay.
+                You don't have to force yourself to suddenly become happy
+                just because someone expects you to. Sometimes you can
+                simply have a weird day, feel tired, feel quiet, or not
+                even know exactly what's wrong.
+                <br><br>
+                So don't put pressure on yourself to fix everything at once.
+                Take a breath, get comfortable, and give yourself a little
+                softness today. One difficult moment doesn't define your
+                whole day, and one difficult day doesn't change how special
+                you are.
+                <br><br>
+                Your fluffy bear has officially prescribed one warm hug,
+                some rest, and absolutely no unnecessary overthinking. 🧸🌷
+            </p>
+        </div>
+
+        <div id="meh" class="note">
+            <h3>For the “meh” days 🌷</h3>
+
+            <p>
+                You know those days where nothing is particularly terrible,
+                but everything just feels... meh?
+                Yeah. Those days deserve a little something too.
+                <br><br>
+                You don't always need some huge exciting thing to make
+                everything better. Sometimes a small laugh, a favourite
+                song, a comfortable blanket, or a few peaceful minutes
+                can be enough to make the day feel a little lighter.
+                <br><br>
+                So here's your reminder that you're allowed to slow down.
+                You don't have to make every day extraordinary.
+                Sometimes an ordinary, peaceful day is more than enough. ♡
+            </p>
+        </div>
+
+        <div id="tired" class="note">
+            <h3>Okay sleepyhead... 🌙</h3>
+
+            <p>
+                If you're tired, please don't treat yourself like a machine
+                that is supposed to keep going forever. You have a brain,
+                feelings, responsibilities, thoughts, and approximately
+                seventeen thousand things happening at once.
+                <br><br>
+                It's completely okay to pause.
+                Rest isn't something you have to earn by becoming completely
+                exhausted first. Give yourself a little time to breathe,
+                put everything down for a while, and let your mind become
+                quiet.
+                <br><br>
+                The fluffy bear is already under his blanket.
+                He's waiting for you. 🧸💤
+            </p>
+        </div>
+
+        <div id="annoyed" class="note">
+            <h3>Angry little Anu detected 😭</h3>
+
+            <p>
+                Okay okay... nobody is asking you to become sunshine
+                immediately. If something annoyed you, you can be annoyed.
+                Take your time.
+                <br><br>
+                But before you let one annoying thing ruin your entire
+                evening, come sit here for a second. Take a breath,
+                unclench your shoulders, and let the moment pass a little.
+                You don't have to solve everything while you're frustrated.
+                <br><br>
+                And if nothing else works, please blame the fluffy bear.
+                He probably caused it somehow. 🧸😭
+            </p>
+        </div>
+
+        <div id="verybad" class="note">
+            <h3>Okay... no fixing everything right now 🫂</h3>
+
+            <p>
+                If you're having a really rough moment, you don't need to
+                pretend that everything is fine just for this website.
+                Take things one little moment at a time.
+                <br><br>
+                You don't have to figure out the entire day right now.
+                Just focus on the next small thing you can do for yourself:
+                breathe, sit somewhere comfortable, drink some water,
+                rest for a bit, or talk to someone you trust if you want to.
+                <br><br>
+                And remember — a difficult moment can feel huge while you're
+                inside it, but moments change. Give yourself time and
+                gentleness. 🌷
+            </p>
+        </div>
+
+        <div id="okay" class="note">
+            <h3>WAIT... she's actually okay?! 😭✨</h3>
+
+            <p>
+                The fluffy bear has been informed and is celebrating
+                accordingly.
+                <br><br>
+                Honestly, if you're having a good day, don't rush past it.
+                Enjoy it. Laugh a little louder, listen to something you
+                like, annoy someone affectionately, stare at the sky,
+                eat something nice, or simply enjoy the fact that your brain
+                decided to cooperate today.
+                <br><br>
+                And yes, this website still demands one smile from you.
+                It's legally required. 🧸💗
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LITTLE GIFTS -->
+<section>
+
+    <h2 class="section-title">Tiny gifts for you 🎁</h2>
+
+    <p class="section-sub">
+        None of these are particularly useful.  
+        That's what makes them perfect.
+    </p>
+
+    <div class="gifts">
+
+        <div class="gift" onclick="openGift('hug')">
+            <span>🫂</span>
+            A hug
+        </div>
+
+        <div class="gift" onclick="openGift('flower')">
+            <span>🌷</span>
+            A flower
+        </div>
+
+        <div class="gift" onclick="openGift('bear')">
+            <span>🧸</span>
+            Bear wisdom
+        </div>
+
+        <div class="gift" onclick="openGift('star')">
+            <span>⭐</span>
+            A star
+        </div>
+
+        <div class="gift" onclick="openGift('secret')">
+            <span>🎀</span>
+            Secret
+        </div>
+
+        <div class="gift" onclick="openGift('silly')">
+            <span>😂</span>
+            Something silly
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DOODLE BEAR -->
+<section>
+
+    <div class="doodle">🧸</div>
+
+    <h2 class="section-title">The Doodle Department</h2>
+
+    <p class="section-sub">
+        The most important meeting in the entire galaxy has begun.
+    </p>
+
+    <div class="doodle-box">
+
+        <p id="meeting" style="line-height:2;font-size:17px;">
+            🧸 <b>Fluffy Bear:</b> “I think Anu needs a hug.”
+            <br><br>
+            🌷 <b>Flower:</b> “Agreed.”
+            <br><br>
+            ⭐ <b>Star:</b> “Maybe also something cute.”
+            <br><br>
+            🧸 <b>Fluffy Bear:</b> “And snacks.”
+            <br><br>
+            ⭐ <b>Star:</b> “Very important.”
+        </p>
+
+        <button class="enter" onclick="meeting()">
+            Continue the meeting 😂
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- CONSTELLATION -->
+<section>
+
+    <h2 class="section-title">Make a little constellation ✨</h2>
+
+    <p class="section-sub">
+        Click the stars one by one and see what the galaxy makes for you.
+    </p>
+
+    <div class="constellation" id="constellation">
+
+        <div class="constellation-star" style="left:18%;top:30%" onclick="starClicked(this)"></div>
+        <div class="constellation-star" style="left:35%;top:20%" onclick="starClicked(this)"></div>
+        <div class="constellation-star" style="left:50%;top:37%" onclick="starClicked(this)"></div>
+        <div class="constellation-star" style="left:67%;top:22%" onclick="starClicked(this)"></div>
+        <div class="constellation-star" style="left:78%;top:42%" onclick="starClicked(this)"></div>
+        <div class="constellation-star" style="left:60%;top:68%" onclick="starClicked(this)"></div>
+        <div class="constellation-star" style="left:38%;top:70%" onclick="starClicked(this)"></div>
+        <div class="constellation-star" style="left:22%;top:57%" onclick="starClicked(this)"></div>
+
+    </div>
+
+    <p id="constellationText" style="margin-top:25px;color:#efbdce;"></p>
+
+</section>
+
+
+<!-- FINAL -->
+<section>
+
+    <div class="doodle">🧸🌙</div>
+
+    <h2 class="section-title">One last little note ♡</h2>
+
+    <div class="card">
+
+        <p style="line-height:2;font-size:17px;color:#f8dce5;">
+
+            Hey Anu,
+            <br><br>
+
+            I don't know exactly what kind of day you're having every time
+            you open this little galaxy, but I hope this tiny place gives
+            you a few peaceful minutes whenever you need them.
+            <br><br>
+
+            You don't have to be happy all the time, and you definitely
+            don't have to hide when you're having an off day. Take your
+            time, breathe, rest, laugh at something stupid, and let yourself
+            be exactly where you are.
+            <br><br>
+
+            And whenever everything feels a little too loud, just remember
+            that somewhere inside this ridiculous little galaxy there is
+            one fluffy white bear whose entire job is apparently to remind
+            you that you're cared for. 🧸🤍
+            <br><br>
+
+            So yeah...
+            this is your little corner of the universe.
+            Come back whenever you want. 🌙✨
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<footer>
+    made with a little bit of chaos, stars & one extremely fluffy bear 🧸♡
+</footer>
+
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+
+    <div class="modal-card">
+
+        <h2 id="modalTitle"></h2>
+
+        <p id="modalText"></p>
+
+        <button class="close" onclick="closeModal()">
+            okayyy ♡
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* MOOD */
+function showNote(id){
+
+    document.querySelectorAll(".note").forEach(note=>{
+        note.classList.remove("show");
+    });
+
+    document.getElementById(id).classList.add("show");
+
+    setTimeout(()=>{
+        document.getElementById(id).scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+    },100);
+}
+
+
+/* GIFTS */
+function openGift(type){
+
+    let title="";
+    let text="";
+
+    if(type==="hug"){
+        title="A very important delivery 🫂";
+        text="Your fluffy bear has delivered one oversized, soft, warm virtual hug. Please accept it immediately. No returns. No exchanges.";
+    }
+
+    if(type==="flower"){
+        title="A tiny flower for you 🌷";
+        text="This flower has absolutely no practical purpose. It simply looked pretty and decided that it belonged to you.";
+    }
+
+    if(type==="bear"){
+        title="Bear wisdom 🧸";
+        text="Fluffy Bear says: “You don't have to have everything figured out today. Also, blankets are scientifically excellent.” He refuses to elaborate.";
+    }
+
+    if(type==="star"){
+        title="One little star ⭐";
+        text="This star has been assigned one job: stay here and make this little corner feel a little brighter whenever you visit.";
+    }
+
+    if(type==="secret"){
+        title="SECRET MESSAGE 🎀";
+        text="Psst... you found one of the hidden things. Fluffy Bear is extremely impressed. He has awarded you 47 imaginary points.";
+    }
+
+    if(type==="silly"){
+        title="Important announcement 😂";
+        text="Breaking news: fluffy bear has forgotten why he walked into the room. Scientists are concerned. He says he will try again tomorrow.";
+    }
+
+    document.getElementById("modalTitle").innerText=title;
+    document.getElementById("modalText").innerText=text;
+    document.getElementById("modal").classList.add("show");
+}
+
+function closeModal(){
+    document.getElementById("modal").classList.remove("show");
+}
+
+
+/* DOODLE MEETING */
+let meetingStep=0;
+
+function meeting(){
+
+    const box=document.getElementById("meeting");
+
+    meetingStep++;
+
+    if(meetingStep===1){
+        box.innerHTML=`
+        🧸 <b>Fluffy Bear:</b> “Okay. New plan.”
+        <br><br>
+        🌷 <b>Flower:</b> “What's the plan?”
+        <br><br>
+        🧸 <b>Fluffy Bear:</b> “Make Anu smile.”
+        <br><br>
+        ⭐ <b>Star:</b> “How?”
+        `;
+    }
+
+    else if(meetingStep===2){
+        box.innerHTML=`
+        🧸 <b>Fluffy Bear:</b> “Easy.”
+        <br><br>
+        🧸 <b>Fluffy Bear:</b> “We give her a flower.”
+        <br><br>
+        🌷 <b>Flower:</b> “I am literally the flower.”
+        <br><br>
+        🧸 <b>Fluffy Bear:</b> “Exactly. Excellent teamwork.”
+        `;
+    }
+
+    else{
+        box.innerHTML=`
+        🧸 <b>Fluffy Bear:</b> “Final decision.”
+        <br><br>
+        ⭐ <b>Star:</b> “What is it?”
+        <br><br>
+        🧸 <b>Fluffy Bear:</b> “Anu deserves a good day.”
+        <br><br>
+        🌷 <b>Flower:</b> “Meeting dismissed.”
+        <br><br>
+        ✨ <b>Everyone:</b> “GOOD LUCK ANUUU ♡”
+        `;
+    }
+}
+
+
+/* CONSTELLATION */
+let starsClicked=0;
+
+function starClicked(star){
+
+    if(star.dataset.clicked==="yes") return;
+
+    star.dataset.clicked="yes";
+    star.style.transform="scale(1.7)";
+    star.style.boxShadow="0 0 30px #fff";
+
+    starsClicked++;
+
+    if(starsClicked===8){
+
+        document.getElementById("constellationText").innerHTML=
+        "✨ You made it! The galaxy officially belongs to you now. 🧸♡";
+
+    }else{
+
+        document.getElementById("constellationText").innerHTML=
+        `${starsClicked} / 8 stars found ✨`;
+
+    }
+}
+
+
+/* RANDOM LITTLE HEARTS */
+setInterval(()=>{
+
+    const heart=document.createElement("div");
+
+    heart.className="float";
+    heart.innerHTML=["♡","✦","˚","♥"][Math.floor(Math.random()*4)];
+
+    heart.style.left=Math.random()*100+"%";
+    heart.style.animationDuration=(10+Math.random()*10)+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },20000);
+
+},2200);
+
+</script>
+
+</body>
+</html>
